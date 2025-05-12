@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediConnect - Système de Rappels Médicaux</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        /* Custom CSS for animations and additional styling */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+        
+        .reminder-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .reminder-card {
+            transition: all 0.3s ease;
+        }
+        
+        .toggle-checkbox:checked {
+            right: 0;
+            background-color: #3b82f6;
+        }
+        
+        .toggle-checkbox:checked + .toggle-label {
+            background-color: #93c5fd;
+        }
+
+        body {
+    padding-bottom: 60px; /* Ajuste selon la hauteur de ta nav */
+  }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <header class="flex justify-between items-center mb-8 fade-in">
+            <div>
+                <h1 class="text-3xl font-bold text-blue-800">MediConnect</h1>
+                
+            </div>
+            <div class="flex items-center space-x-4">
+                
+                <div class="flex items-center space-x-2">
+                    <img src="https://ui-avatars.com/api/?name=Jean+Dupont&background=3b82f6&color=fff" alt="Profile" class="w-10 h-10 rounded-full">
+                    <span class="font-medium">Jean Dupont</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main>
+            <!-- Dashboard Overview -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <div class="bg-white rounded-xl shadow-md p-6 fade-in">
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-lg font-semibold text-gray-700">Prochain rendez-vous</h3>
+                        <i class="fas fa-calendar-check text-blue-500 text-xl"></i>
+                    </div>
+                    <div class="mt-4">
+                        <p class="text-2xl font-bold">15 Juin 2023</p>
+                        <p class="text-gray-600">10:30 - Cardiologue</p>
+                        <p class="text-gray-500 text-sm mt-2">Hôpital Saint-Louis</p>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-xl shadow-md p-6 fade-in">
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-lg font-semibold text-gray-700">Médicaments du jour</h3>
+                        <i class="fas fa-pills text-blue-500 text-xl"></i>
+                    </div>
+                    <div class="mt-4">
+                        <p class="text-2xl font-bold">3 médicaments</p>
+                        <p class="text-gray-600">Prochaine prise à 12:00</p>
+                        <div class="flex space-x-2 mt-2">
+                            <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded">Paracétamol</span>
+                            <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">Ibuprofène</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-xl shadow-md p-6 fade-in">
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-lg font-semibold text-gray-700">Paramètres de notification</h3>
+                        <i class="fas fa-bell text-blue-500 text-xl"></i>
+                    </div>
+                    <div class="mt-4 space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span>SMS</span>
+                            <div class="relative inline-block w-10 mr-2 align-middle select-none">
+                                <input type="checkbox" id="sms-toggle" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer" checked />
+                                <label for="sms-toggle" class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"></label>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span>Email</span>
+                            <div class="relative inline-block w-10 mr-2 align-middle select-none">
+                                <input type="checkbox" id="email-toggle" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer" checked />
+                                <label for="email-toggle" class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"></label>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span>Appels</span>
+                            <div class="relative inline-block w-10 mr-2 align-middle select-none">
+                                <input type="checkbox" id="call-toggle" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer" />
+                                <label for="call-toggle" class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Reminders Section -->
+            <div class="bg-white rounded-xl shadow-md overflow-hidden mb-8 fade-in">
+                <div class="px-6 py-4 border-b border-gray-200">
+                    <div class="flex items-center justify-between">
+                        <h2 class="text-xl font-semibold text-gray-800">Vos rappels</h2>
+                        <button id="add-reminder-btn" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center space-x-2 transition-colors">
+                            <i class="fas fa-plus"></i>
+                            <span>Ajouter un rappel</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="divide-y divide-gray-200">
+                    <!-- Reminder Item 1 -->
+                    <div class="reminder-card p-6 hover:bg-gray-50 cursor-pointer">
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 bg-blue-100 p-3 rounded-lg">
+                                <i class="fas fa-pills text-blue-600 text-xl"></i>
+                            </div>
+                            <div class="ml-4 flex-1">
+                                <div class="flex items-center justify-between">
+                                    <h3 class="text-lg font-medium text-gray-900">Prendre Paracétamol</h3>
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">Active</span>
+                                </div>
+                                <div class="mt-1 flex items-center text-sm text-gray-500">
+                                    <i class="far fa-clock mr-1"></i>
+                                    <span>Tous les jours à 08:00 et 20:00</span>
+                                </div>
+                                <div class="mt-2 flex items-center text-sm text-gray-500">
+                                    <i class="fas fa-info-circle mr-1"></i>
+                                    <span>500mg - Jusqu'au 30/06/2023</span>
+                                </div>
+                                <div class="mt-3 flex space-x-3">
+                                    <button class="text-blue-600 hover:text-blue-800 text-sm font-medium">Modifier</button>
+                                    <button class="text-red-600 hover:text-red-800 text-sm font-medium">Supprimer</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Reminder Item 2 -->
+                    <div class="reminder-card p-6 hover:bg-gray-50 cursor-pointer">
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 bg-purple-100 p-3 rounded-lg">
+                                <i class="fas fa-calendar-alt text-purple-600 text-xl"></i>
+                            </div>
+                            <div class="ml-4 flex-1">
+                                <div class="flex items-center justify-between">
+                                    <h3 class="text-lg font-medium text-gray-900">Consultation Cardiologue</h3>
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">À venir</span>
+                                </div>
+                                <div class="mt-1 flex items-center text-sm text-gray-500">
+                                    <i class="far fa-clock mr-1"></i>
+                                    <span>15 Juin 2023 à 10:30</span>
+                                </div>
+                                <div class="mt-2 flex items-center text-sm text-gray-500">
+                                    <i class="fas fa-map-marker-alt mr-1"></i>
+                                    <span>Hôpital Saint-Louis, 1 Avenue Claude Vellefaux</span>
+                                </div>
+                                <div class="mt-3 flex space-x-3">
+                                    <button class="text-blue-600 hover:text-blue-800 text-sm font-medium">Modifier</button>
+                                    <button class="text-red-600 hover:text-red-800 text-sm font-medium">Supprimer</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Reminder Item 3 -->
+                    <div class="reminder-card p-6 hover:bg-gray-50 cursor-pointer">
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 bg-red-100 p-3 rounded-lg">
+                                <i class="fas fa-syringe text-red-600 text-xl"></i>
+                            </div>
+                            <div class="ml-4 flex-1">
+                                <div class="flex items-center justify-between">
+                                    <h3 class="text-lg font-medium text-gray-900">Vaccin contre la grippe</h3>
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">Programmé</span>
+                                </div>
+                                <div class="mt-1 flex items-center text-sm text-gray-500">
+                                    <i class="far fa-clock mr-1"></i>
+                                    <span>1 Novembre 2023 à 14:00</span>
+                                </div>
+                                <div class="mt-2 flex items-center text-sm text-gray-500">
+                                    <i class="fas fa-user-md mr-1"></i>
+                                    <span>Dr. Martin - Cabinet médical</span>
+                                </div>
+                                <div class="mt-3 flex space-x-3">
+                                    <button class="text-blue-600 hover:text-blue-800 text-sm font-medium">Modifier</button>
+                                    <button class="text-red-600 hover:text-red-800 text-sm font-medium">Supprimer</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Add Reminder Modal (Hidden by default) -->
+            <div id="reminder-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+                <div class="bg-white rounded-xl shadow-xl w-full max-w-md fade-in">
+                    <div class="px-6 py-4 border-b border-gray-200">
+                        <div class="flex items-center justify-between">
+                            <h3 class="text-lg font-semibold text-gray-800">Nouveau rappel</h3>
+                            <button id="close-modal-btn" class="text-gray-400 hover:text-gray-500">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <form id="reminder-form">
+                            <div class="mb-4">
+                                <label for="reminder-type" class="block text-sm font-medium text-gray-700 mb-1">Type de rappel</label>
+                                <select id="reminder-type" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                    <option value="medication">Médicament</option>
+                                    <option value="appointment">Rendez-vous</option>
+                                    <option value="test">Examen médical</option>
+                                    <option value="other">Autre</option>
+                                </select>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label for="reminder-title" class="block text-sm font-medium text-gray-700 mb-1">Titre</label>
+                                <input type="text" id="reminder-title" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="Ex: Prendre antibiotique">
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label for="reminder-date" class="block text-sm font-medium text-gray-700 mb-1">Date et heure</label>
+                                <input type="datetime-local" id="reminder-date" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                            </div>
+                            
+                            <div id="medication-fields" class="mb-4">
+                                <label for="medication-dosage" class="block text-sm font-medium text-gray-700 mb-1">Dosage</label>
+                                <input type="text" id="medication-dosage" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="Ex: 500mg">
+                                
+                                <label for="medication-frequency" class="block text-sm font-medium text-gray-700 mt-3 mb-1">Fréquence</label>
+                                <select id="medication-frequency" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                    <option value="once">Une seule fois</option>
+                                    <option value="daily">Quotidien</option>
+                                    <option value="weekly">Hebdomadaire</option>
+                                    <option value="monthly">Mensuel</option>
+                                </select>
+                            </div>
+                            
+                            <div id="appointment-fields" class="mb-4 hidden">
+                                <label for="appointment-location" class="block text-sm font-medium text-gray-700 mb-1">Lieu</label>
+                                <input type="text" id="appointment-location" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="Ex: Hôpital Saint-Louis">
+                                
+                                <label for="appointment-doctor" class="block text-sm font-medium text-gray-700 mt-3 mb-1">Médecin</label>
+                                <input type="text" id="appointment-doctor" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="Ex: Dr. Dupont">
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label for="reminder-notes" class="block text-sm font-medium text-gray-700 mb-1">Notes</label>
+                                <textarea id="reminder-notes" rows="3" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="Informations supplémentaires..."></textarea>
+                            </div>
+                            
+                            <div class="flex justify-end space-x-3">
+                                <button type="button" id="cancel-reminder-btn" class="px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                                    Annuler
+                                </button>
+                                <button type="submit" class="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                                    Enregistrer
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // DOM Elements
+        const addReminderBtn = document.getElementById('add-reminder-btn');
+        const reminderModal = document.getElementById('reminder-modal');
+        const closeModalBtn = document.getElementById('close-modal-btn');
+        const cancelReminderBtn = document.getElementById('cancel-reminder-btn');
+        const reminderForm = document.getElementById('reminder-form');
+        const reminderType = document.getElementById('reminder-type');
+        const medicationFields = document.getElementById('medication-fields');
+        const appointmentFields = document.getElementById('appointment-fields');
+        
+        // Show modal when add reminder button is clicked
+        addReminderBtn.addEventListener('click', () => {
+            reminderModal.classList.remove('hidden');
+        });
+        
+        // Hide modal when close button is clicked
+        closeModalBtn.addEventListener('click', () => {
+            reminderModal.classList.add('hidden');
+        });
+        
+        // Hide modal when cancel button is clicked
+        cancelReminderBtn.addEventListener('click', () => {
+            reminderModal.classList.add('hidden');
+        });
+        
+        // Hide modal when clicking outside of it
+        reminderModal.addEventListener('click', (e) => {
+            if (e.target === reminderModal) {
+                reminderModal.classList.add('hidden');
+            }
+        });
+        
+        // Handle form submission
+        reminderForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            // Here you would normally send the data to a server
+            alert('Rappel enregistré avec succès!');
+            reminderModal.classList.add('hidden');
+            reminderForm.reset();
+        });
+        
+        // Show/hide fields based on reminder type
+        reminderType.addEventListener('change', () => {
+            if (reminderType.value === 'medication') {
+                medicationFields.classList.remove('hidden');
+                appointmentFields.classList.add('hidden');
+            } else if (reminderType.value === 'appointment') {
+                medicationFields.classList.add('hidden');
+                appointmentFields.classList.remove('hidden');
+            } else {
+                medicationFields.classList.add('hidden');
+                appointmentFields.classList.add('hidden');
+            }
+        });
+        
+        // Toggle switches functionality
+        document.querySelectorAll('.toggle-checkbox').forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                const label = document.querySelector(`label[for="${this.id}"]`);
+                if (this.checked) {
+                    label.classList.remove('bg-gray-300');
+                    label.classList.add('bg-blue-200');
+                } else {
+                    label.classList.remove('bg-blue-200');
+                    label.classList.add('bg-gray-300');
+                }
+            });
+        });
+        
+        // Simulate loading animation for fade-in elements
+        document.addEventListener('DOMContentLoaded', () => {
+            const fadeElements = document.querySelectorAll('.fade-in');
+            fadeElements.forEach((el, index) => {
+                el.style.animationDelay = `${index * 0.1}s`;
+            });
+        });
+    </script>
+
+<div id="navbar-mobile-placeholder"></div>
+<div id="navbar-mobile-placeholder"></div>
+<script>
+    fetch('navbar_mobile.html')
+        .then(res => res.text())
+        .then(html => {
+            document.getElementById('navbar-mobile-placeholder').innerHTML = html;
+
+            // Si on veut afficher tous les éléments, on n'applique aucun filtrage :
+            // const showIcons = [...]; → supprimé ou ignoré
+
+            /*
+            // Ce bloc n'est plus nécessaire si on veut tout afficher :
+            const allIcons = [
+                'nav-accueil',
+                'nav-consultation',
+                'nav-dossiers',
+                'nav-services',
+                'nav-medecin',
+                'nav-pharmacie',
+                'nav-notation',
+                'nav-notification'
+            ];
+            allIcons.forEach(id => {
+                if (!showIcons.includes(id)) {
+                    const el = document.getElementById(id);
+                    if (el) el.style.display = 'none';
+                }
+            });
+            */
+        });
+</script>
+
+
+</body>
+</html>

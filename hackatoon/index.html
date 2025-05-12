@@ -1,0 +1,1167 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediConnect Benin - Télémédecine</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8fafc;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+        }
+        
+        .doctor-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .feature-card:hover {
+            transform: scale(1.03);
+        }
+        
+        .rating-stars {
+            color: #f59e0b;
+        }
+        
+        .nav-link:hover {
+            color: #3b82f6;
+        }
+        
+        .consultation-type.active {
+            background-color: #3b82f6;
+            color: white;
+        }
+        
+        .chat-bubble {
+            border-radius: 20px;
+            max-width: 70%;
+        }
+        
+        .patient-message {
+            background-color: #3b82f6;
+            color: white;
+            margin-left: auto;
+        }
+        
+        .doctor-message {
+            background-color: #e2e8f0;
+            margin-right: auto;
+        }
+        
+        /* Animation for notification */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        body {
+    padding-bottom: 60px; /* Ajuste selon la hauteur de ta nav */
+  }
+    </style>
+</head>
+<body>
+    <!-- Header/Navigation -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <div class="w-10 h-10 rounded-full gradient-bg flex items-center justify-center">
+                    <i class="fas fa-heartbeat text-white text-xl"></i>
+                </div>
+                <span class="text-xl font-bold text-gray-800">MediConnect</span>
+            </div>
+            
+            <nav class="hidden md:flex space-x-8">
+                <a href="#accueil" class="nav-link text-gray-600 hover:text-blue-500 font-medium">Accueil</a>
+                <a href="consultation_en_ligne.html" class="nav-link text-gray-600 hover:text-blue-500 font-medium">Consultation</a>
+                <a href="dossier_medical_du_patient.html" class="nav-link text-gray-600 hover:text-blue-500 font-medium">Dossiers</a>
+                <a href="conseil_médicaux.html" class="nav-link text-gray-600 hover:text-blue-500 font-medium">Services</a>
+                <a href="liste_médécin.html" class="nav-link text-gray-600 hover:text-blue-500 font-medium">Médécin</a>
+                <a href="liste_phamarcie.html" class="nav-link text-gray-600 hover:text-blue-500 font-medium">Phamarcie</a>
+                <a href="notation_des_médécins.html" class="nav-link text-gray-600 hover:text-blue-500 font-medium">Notation</a>
+                <a href="système_de_rapport_médicaux.html" class="nav-link text-gray-600 hover:text-blue-500 font-medium">Notification</a>
+            </nav>
+            
+            <div class="flex items-center space-x-4">
+                <a href="login_register.html" class="hidden md:inline-block bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-full font-medium transition">
+                    Connexion
+                </a>
+                
+                <button class="md:hidden text-gray-600">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="accueil" class="gradient-bg text-white py-16">
+        <div class="container mx-auto px-4 flex flex-col md:flex-row items-center">
+            <div class="md:w-1/2 mb-10 md:mb-0">
+                <h1 class="text-4xl md:text-5xl font-bold mb-4">Soins médicaux à distance, simple et sécurisé</h1>
+                <p class="text-lg mb-8 opacity-90">Consultez des médecins qualifiés depuis chez vous, gérez vos dossiers médicaux et recevez des rappels pour vos traitements.</p>
+                <div class="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4">
+                    
+                </div>
+            </div>
+            <div class="md:w-1/2 flex justify-center">
+                <div class="relative">
+                    <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Doctor consultation" class="rounded-xl shadow-2xl w-full max-w-md">
+                    <div class="absolute -bottom-6 -right-6 bg-white p-4 rounded-xl shadow-lg">
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+                                <i class="fas fa-calendar-check text-blue-500 text-xl"></i>
+                            </div>
+                            <div class="ml-3">
+                                <p class="text-gray-500 text-sm">Rendez-vous</p>
+                                <p class="font-bold text-gray-800">24/7 Disponible</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="bg-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+                <div class="p-6">
+                    <p class="text-4xl font-bold text-blue-500 mb-2">500+</p>
+                    <p class="text-gray-600">Médecins qualifiés</p>
+                </div>
+                <div class="p-6">
+                    <p class="text-4xl font-bold text-purple-500 mb-2">10K+</p>
+                    <p class="text-gray-600">Patients satisfaits</p>
+                </div>
+                <div class="p-6">
+                    <p class="text-4xl font-bold text-green-500 mb-2">24/7</p>
+                    <p class="text-gray-600">Service disponible</p>
+                </div>
+                <div class="p-6">
+                    <p class="text-4xl font-bold text-yellow-500 mb-2">95%</p>
+                    <p class="text-gray-600">Taux de satisfaction</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Consultation Section -->
+    <section id="consultation" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">Comment consulter un médecin ?</h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">Trois méthodes simples pour obtenir des soins médicaux de qualité depuis votre domicile.</p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Video Consultation -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden feature-card transition duration-300">
+                    <div class="h-48 bg-blue-100 flex items-center justify-center">
+                        <i class="fas fa-video text-blue-500 text-6xl"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-800 mb-3">Consultation vidéo</h3>
+                        <p class="text-gray-600 mb-4">Parlez face à face avec un médecin en temps réel via une connexion sécurisée.</p>
+                        <button class="text-blue-500 font-medium flex items-center">
+                            En savoir plus <i class="fas fa-arrow-right ml-2"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Chat Consultation -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden feature-card transition duration-300">
+                    <div class="h-48 bg-purple-100 flex items-center justify-center">
+                        <i class="fas fa-comments text-purple-500 text-6xl"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-800 mb-3">Consultation par chat</h3>
+                        <p class="text-gray-600 mb-4">Échangez en direct avec un médecin par messagerie instantanée sécurisée.</p>
+                        <button class="text-purple-500 font-medium flex items-center">
+                            En savoir plus <i class="fas fa-arrow-right ml-2"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Phone Consultation -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden feature-card transition duration-300">
+                    <div class="h-48 bg-green-100 flex items-center justify-center">
+                        <i class="fas fa-phone-alt text-green-500 text-6xl"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-800 mb-3">Consultation téléphonique</h3>
+                        <p class="text-gray-600 mb-4">Parlez directement avec un médecin par téléphone, même sans internet.</p>
+                        <button class="text-green-500 font-medium flex items-center">
+                            En savoir plus <i class="fas fa-arrow-right ml-2"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Doctors Section -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center mb-8">
+                <div>
+                    <h2 class="text-3xl font-bold text-gray-800">Nos médecins spécialistes</h2>
+                    <p class="text-gray-600">Des professionnels de santé qualifiés et expérimentés</p>
+                </div>
+                <button class="hidden md:block border border-blue-500 text-blue-500 hover:bg-blue-50 px-4 py-2 rounded-full font-medium transition">
+                    Voir tous les médecins
+                </button>
+            </div>
+            
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Doctor 1 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden doctor-card transition duration-300">
+                    <div class="h-48 bg-gray-200 relative">
+                        <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Doctor" class="w-full h-full object-cover">
+                        <div class="absolute top-3 right-3 bg-white rounded-full p-2 shadow">
+                            <i class="fas fa-heart text-red-400"></i>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg text-gray-800">Dr. Amina Bello</h3>
+                        <p class="text-gray-600 text-sm mb-2">Médecin généraliste</p>
+                        <div class="flex items-center mb-2">
+                            <div class="rating-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <span class="text-gray-500 text-sm ml-2">4.8 (124)</span>
+                        </div>
+                        <div class="flex justify-between items-center mt-4">
+                            <p class="text-gray-800 font-bold">5 000 FCFA</p>
+                            <button class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded-full text-sm font-medium transition">
+                                Consulter
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Doctor 2 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden doctor-card transition duration-300">
+                    <div class="h-48 bg-gray-200 relative">
+                        <img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D3D&auto=format&fit=crop&w=1528&q=80" alt="Doctor" class="w-full h-full object-cover">
+                        <div class="absolute top-3 right-3 bg-white rounded-full p-2 shadow">
+                            <i class="far fa-heart text-gray-400"></i>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg text-gray-800">Dr. Koffi Adékambi</h3>
+                        <p class="text-gray-600 text-sm mb-2">Pédiatre</p>
+                        <div class="flex items-center mb-2">
+                            <div class="rating-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                            <span class="text-gray-500 text-sm ml-2">4.5 (87)</span>
+                        </div>
+                        <div class="flex justify-between items-center mt-4">
+                            <p class="text-gray-800 font-bold">6 000 FCFA</p>
+                            <button class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded-full text-sm font-medium transition">
+                                Consulter
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Doctor 3 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden doctor-card transition duration-300">
+                    <div class="h-48 bg-gray-200 relative">
+                        <img src="https://images.unsplash.com/photo-1594824476967-48c8b964273f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80" alt="Doctor" class="w-full h-full object-cover">
+                        <div class="absolute top-3 right-3 bg-white rounded-full p-2 shadow">
+                            <i class="far fa-heart text-gray-400"></i>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg text-gray-800">Dr. Fatou N'Diaye</h3>
+                        <p class="text-gray-600 text-sm mb-2">Gynécologue</p>
+                        <div class="flex items-center mb-2">
+                            <div class="rating-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <span class="text-gray-500 text-sm ml-2">5.0 (203)</span>
+                        </div>
+                        <div class="flex justify-between items-center mt-4">
+                            <p class="text-gray-800 font-bold">7 500 FCFA</p>
+                            <button class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded-full text-sm font-medium transition">
+                                Consulter
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Doctor 4 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden doctor-card transition duration-300">
+                    <div class="h-48 bg-gray-200 relative">
+                        <img src="https://images.unsplash.com/photo-1651008376811-b90baee60c1f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80" alt="Doctor" class="w-full h-full object-cover">
+                        <div class="absolute top-3 right-3 bg-white rounded-full p-2 shadow">
+                            <i class="far fa-heart text-gray-400"></i>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg text-gray-800">Dr. Jean Soglo</h3>
+                        <p class="text-gray-600 text-sm mb-2">Cardiologue</p>
+                        <div class="flex items-center mb-2">
+                            <div class="rating-stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <span class="text-gray-500 text-sm ml-2">4.7 (156)</span>
+                        </div>
+                        <div class="flex justify-between items-center mt-4">
+                            <p class="text-gray-800 font-bold">8 000 FCFA</p>
+                            <button class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded-full text-sm font-medium transition">
+                                Consulter
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-8 md:hidden">
+                <button class="border border-blue-500 text-blue-500 hover:bg-blue-50 px-6 py-2 rounded-full font-medium transition">
+                    Voir tous les médecins
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Medical Records Section -->
+    <section id="dossiers" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-10 md:mb-0">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-4">Dossiers médicaux numériques sécurisés</h2>
+                    <p class="text-lg text-gray-600 mb-6">Stockez et accédez à tous vos documents médicaux en un seul endroit, disponible 24h/24 depuis n'importe quel appareil.</p>
+                    
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <div class="bg-blue-100 p-2 rounded-full mr-4">
+                                <i class="fas fa-shield-alt text-blue-500"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-gray-800 mb-1">Sécurité maximale</h3>
+                                <p class="text-gray-600">Vos données sont chiffrées et protégées selon les normes les plus strictes.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="bg-purple-100 p-2 rounded-full mr-4">
+                                <i class="fas fa-history text-purple-500"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-gray-800 mb-1">Historique complet</h3>
+                                <p class="text-gray-600">Conservez l'ensemble de vos consultations, ordonnances et résultats d'analyses.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="bg-green-100 p-2 rounded-full mr-4">
+                                <i class="fas fa-share-alt text-green-500"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-gray-800 mb-1">Partage contrôlé</h3>
+                                <p class="text-gray-600">Partagez vos documents avec les professionnels de santé de votre choix.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="md:w-1/2 flex justify-center">
+                    <div class="relative max-w-md">
+                        <div class="bg-white p-6 rounded-xl shadow-lg w-full">
+                            <div class="flex justify-between items-center mb-6">
+                                <h3 class="font-bold text-gray-800">Mon dossier médical</h3>
+                                <button class="text-blue-500 text-sm font-medium">Voir tout</button>
+                            </div>
+                            
+                            <div class="space-y-4">
+                                <div class="flex items-center p-3 bg-blue-50 rounded-lg">
+                                    <div class="bg-blue-100 p-2 rounded-full mr-3">
+                                        <i class="fas fa-file-prescription text-blue-500"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <p class="font-medium text-gray-800">Ordonnance du 15/06/2023</p>
+                                        <p class="text-sm text-gray-500">Dr. Amina Bello</p>
+                                    </div>
+                                    <button class="text-gray-400 hover:text-gray-600">
+                                        <i class="fas fa-ellipsis-v"></i>
+                                    </button>
+                                </div>
+                                
+                                <div class="flex items-center p-3 bg-purple-50 rounded-lg">
+                                    <div class="bg-purple-100 p-2 rounded-full mr-3">
+                                        <i class="fas fa-vial text-purple-500"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <p class="font-medium text-gray-800">Résultats sanguins</p>
+                                        <p class="text-sm text-gray-500">Laboratoire BioCheck, 10/05/2023</p>
+                                    </div>
+                                    <button class="text-gray-400 hover:text-gray-600">
+                                        <i class="fas fa-ellipsis-v"></i>
+                                    </button>
+                                </div>
+                                
+                                <div class="flex items-center p-3 bg-green-50 rounded-lg">
+                                    <div class="bg-green-100 p-2 rounded-full mr-3">
+                                        <i class="fas fa-heartbeat text-green-500"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <p class="font-medium text-gray-800">ECG du 22/04/2023</p>
+                                        <p class="text-sm text-gray-500">Clinique La Paix</p>
+                                    </div>
+                                    <button class="text-gray-400 hover:text-gray-600">
+                                        <i class="fas fa-ellipsis-v"></i>
+                                    </button>
+                                </div>
+                                
+                                <div class="flex items-center p-3 bg-yellow-50 rounded-lg">
+                                    <div class="bg-yellow-100 p-2 rounded-full mr-3">
+                                        <i class="fas fa-allergies text-yellow-500"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <p class="font-medium text-gray-800">Allergies connues</p>
+                                        <p class="text-sm text-gray-500">Mise à jour: 12/03/2023</p>
+                                    </div>
+                                    <button class="text-gray-400 hover:text-gray-600">
+                                        <i class="fas fa-ellipsis-v"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <button class="mt-6 w-full bg-blue-500 hover:bg-blue-600 text-white py-2 rounded-lg font-medium transition">
+                                <i class="fas fa-plus mr-2"></i> Ajouter un document
+                            </button>
+                        </div>
+                        
+                        <div class="absolute -bottom-6 -left-6 bg-white p-4 rounded-xl shadow-lg w-40">
+                            <div class="flex items-center">
+                                <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
+                                    <i class="fas fa-lock text-green-500"></i>
+                                </div>
+                                <div class="ml-3">
+                                    <p class="text-xs text-gray-500">Sécurité</p>
+                                    <p class="font-bold text-sm text-gray-800">Certifié</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reminders Section -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-10 md:mb-0 order-2 md:order-1">
+                    <div class="relative max-w-md mx-auto">
+                        <div class="bg-gray-800 text-white p-6 rounded-xl shadow-lg">
+                            <div class="flex justify-between items-center mb-6">
+                                <h3 class="font-bold">Mes rappels</h3>
+                                <button class="text-blue-300 text-sm font-medium">Paramètres</button>
+                            </div>
+                            
+                            <div class="space-y-4">
+                                <div class="flex items-center p-3 bg-gray-700 rounded-lg">
+                                    <div class="bg-blue-500 p-2 rounded-full mr-3">
+                                        <i class="fas fa-pills"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <p class="font-medium">Prendre Doliprane</p>
+                                        <p class="text-sm text-gray-300">8h00, 14h00, 20h00</p>
+                                    </div>
+                                    <div class="w-6 h-6 rounded-full border-2 border-blue-300 flex items-center justify-center">
+                                        <div class="w-3 h-3 rounded-full bg-blue-300"></div>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-center p-3 bg-gray-700 rounded-lg">
+                                    <div class="bg-purple-500 p-2 rounded-full mr-3">
+                                        <i class="fas fa-syringe"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <p class="font-medium">Injection d'insuline</p>
+                                        <p class="text-sm text-gray-300">12h00 - 20 unités</p>
+                                    </div>
+                                    <div class="w-6 h-6 rounded-full border-2 border-gray-500"></div>
+                                </div>
+                                
+                                <div class="flex items-center p-3 bg-gray-700 rounded-lg">
+                                    <div class="bg-yellow-500 p-2 rounded-full mr-3">
+                                        <i class="fas fa-calendar-alt"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <p class="font-medium">Rendez-vous cardiologue</p>
+                                        <p class="text-sm text-gray-300">Demain à 15h30</p>
+                                    </div>
+                                    <div class="w-6 h-6 rounded-full border-2 border-gray-500"></div>
+                                </div>
+                                
+                                <div class="flex items-center p-3 bg-gray-700 rounded-lg opacity-60">
+                                    <div class="bg-green-500 p-2 rounded-full mr-3">
+                                        <i class="fas fa-prescription-bottle-alt"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <p class="font-medium">Renouvellement ordonnance</p>
+                                        <p class="text-sm text-gray-300">Dans 3 jours</p>
+                                    </div>
+                                    <div class="w-6 h-6 rounded-full border-2 border-gray-500"></div>
+                                </div>
+                            </div>
+                            
+                            <button class="mt-6 w-full bg-blue-500 hover:bg-blue-600 text-white py-2 rounded-lg font-medium transition">
+                                <i class="fas fa-bell mr-2"></i> Ajouter un rappel
+                            </button>
+                        </div>
+                        
+                        <div class="absolute -top-6 -right-6 bg-white p-4 rounded-xl shadow-lg w-40">
+                            <div class="flex items-center">
+                                <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center pulse">
+                                    <i class="fas fa-bell text-blue-500"></i>
+                                </div>
+                                <div class="ml-3">
+                                    <p class="text-xs text-gray-500">Notification</p>
+                                    <p class="font-bold text-sm text-gray-800">Active</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="md:w-1/2 order-1 md:order-2 md:pl-12">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-4">Ne manquez plus vos traitements</h2>
+                    <p class="text-lg text-gray-600 mb-6">Notre système de rappels intelligents vous aide à suivre votre traitement médical et vos rendez-vous.</p>
+                    
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <div class="bg-blue-100 p-2 rounded-full mr-4">
+                                <i class="fas fa-clock text-blue-500"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-gray-800 mb-1">Rappels personnalisés</h3>
+                                <p class="text-gray-600">Configurez des alertes pour chaque médicament selon votre posologie.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="bg-purple-100 p-2 rounded-full mr-4">
+                                <i class="fas fa-calendar-check text-purple-500"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-gray-800 mb-1">Agenda médical</h3>
+                                <p class="text-gray-600">Visualisez tous vos rendez-vous et recevez des rappels automatiques.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="bg-green-100 p-2 rounded-full mr-4">
+                                <i class="fas fa-mobile-alt text-green-500"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-gray-800 mb-1">Multi-canaux</h3>
+                                <p class="text-gray-600">Notifications par SMS, email et appels pour ne rien oublier.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Additional Services -->
+    <section id="services" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">Nos services additionnels</h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">Découvrez nos services complémentaires pour faciliter votre parcours de soins.</p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Medicine Delivery -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden p-6 feature-card transition duration-300">
+                    <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-6">
+                        <i class="fas fa-truck text-blue-500 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">Livraison de médicaments</h3>
+                    <p class="text-gray-600 mb-4">Faites-vous livrer vos médicaments à domicile dans les 24h après votre consultation.</p>
+                    <button class="text-blue-500 font-medium flex items-center">
+                        Commander <i class="fas fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
+                
+                <!-- Medical Advice -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden p-6 feature-card transition duration-300">
+                    <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mb-6">
+                        <i class="fas fa-comment-medical text-purple-500 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">Conseils médicaux</h3>
+                    <p class="text-gray-600 mb-4">Accédez à des conseils personnalisés et des articles rédigés par nos médecins.</p>
+                    <button class="text-purple-500 font-medium flex items-center">
+                        Consulter <i class="fas fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
+                
+                <!-- Emergency -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden p-6 feature-card transition duration-300">
+                    <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mb-6">
+                        <i class="fas fa-ambulance text-red-500 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">Urgences médicales</h3>
+                    <p class="text-gray-600 mb-4">Contactez immédiatement un médecin en cas d'urgence via notre service dédié.</p>
+                    <button class="text-red-500 font-medium flex items-center">
+                        Urgence <i class="fas fa-phone-alt ml-2"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">Témoignages de patients</h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">Découvrez ce que nos patients disent de leur expérience avec MediConnect.</p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="bg-gray-50 rounded-xl p-6">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 rounded-full bg-gray-300 mr-4 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80" alt="Patient" class="w-full h-full object-cover">
+                        </div>
+                        <div>
+                            <p class="font-bold text-gray-800">Martine K.</p>
+                            <div class="flex">
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 italic">"J'habite en zone rurale et avant je devais faire 2h de route pour voir un médecin. Maintenant avec MediConnect, je peux consulter depuis chez moi. Les médecins sont très compétents et le système de rappel pour mes médicaments m'a beaucoup aidé."</p>
+                </div>
+                
+                <!-- Testimonial 2 -->
+                <div class="bg-gray-50 rounded-xl p-6">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 rounded-full bg-gray-300 mr-4 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80" alt="Patient" class="w-full h-full object-cover">
+                        </div>
+                        <div>
+                            <p class="font-bold text-gray-800">Jean-Paul D.</p>
+                            <div class="flex">
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star-half-alt text-yellow-400"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 italic">"En tant que père de famille, c'est très pratique de pouvoir consulter un pédiatre le soir ou le week-end sans avoir à se déplacer aux urgences. La fonction de partage des dossiers médicaux avec les médecins est très utile pour le suivi de mes enfants."</p>
+                </div>
+                
+                <!-- Testimonial 3 -->
+                <div class="bg-gray-50 rounded-xl p-6">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 rounded-full bg-gray-300 mr-4 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1376&q=80" alt="Patient" class="w-full h-full object-cover">
+                        </div>
+                        <div>
+                            <p class="font-bold text-gray-800">Aïchatou O.</p>
+                            <div class="flex">
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="far fa-star text-yellow-400"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 italic">"Je suis diabétique et le système de rappel pour mes injections d'insuline a révolutionné ma gestion de la maladie. De plus, pouvoir consulter mon endocrinologue régulièrement sans avoir à prendre une journée de congé est un vrai soulagement."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Chat Consultation Demo -->
+    <section class="py-16 bg-blue-50">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-10 md:mb-0">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-4">Essayez notre consultation par chat</h2>
+                    <p class="text-lg text-gray-600 mb-6">Discutez en direct avec un médecin pour des questions médicales non urgentes.</p>
+                    
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <div class="bg-blue-100 p-2 rounded-full mr-4">
+                                <i class="fas fa-comment-dots text-blue-500"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-gray-800 mb-1">Réponse rapide</h3>
+                                <p class="text-gray-600">Obtenez des réponses à vos questions en quelques minutes.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="bg-purple-100 p-2 rounded-full mr-4">
+                                <i class="fas fa-euro-sign text-purple-500"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-gray-800 mb-1">Tarif abordable</h3>
+                                <p class="text-gray-600">À partir de 2 500 FCFA pour une consultation de 15 minutes.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="bg-green-100 p-2 rounded-full mr-4">
+                                <i class="fas fa-history text-green-500"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-gray-800 mb-1">Historique sauvegardé</h3>
+                                <p class="text-gray-600">Retrouvez toutes vos conversations dans votre dossier médical.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button class="mt-8 bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-full font-bold transition">
+                        Démarrer une consultation
+                    </button>
+                </div>
+                
+                <div class="md:w-1/2">
+                    <div class="bg-white rounded-xl shadow-lg overflow-hidden max-w-md mx-auto">
+                        <div class="bg-gray-800 text-white p-4 flex items-center">
+                            <div class="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center mr-3">
+                                <i class="fas fa-user-md"></i>
+                            </div>
+                            <div>
+                                <p class="font-bold">Dr. Amina Bello</p>
+                                <p class="text-xs text-gray-300">En ligne - Médecin généraliste</p>
+                            </div>
+                            <div class="ml-auto flex space-x-2">
+                                <button class="text-gray-300 hover:text-white">
+                                    <i class="fas fa-phone-alt"></i>
+                                </button>
+                                <button class="text-gray-300 hover:text-white">
+                                    <i class="fas fa-video"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="p-4 h-64 overflow-y-auto">
+                            <div class="flex mb-4">
+                                <div class="chat-bubble doctor-message p-3">
+                                    <p>Bonjour, comment puis-je vous aider aujourd'hui ?</p>
+                                    <p class="text-xs text-gray-500 mt-1">10:32</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex mb-4">
+                                <div class="chat-bubble patient-message p-3">
+                                    <p>Bonjour docteur, j'ai une toux persistante depuis 3 jours et une légère fièvre le soir (37.8°C).</p>
+                                    <p class="text-xs text-blue-100 mt-1">10:33</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex mb-4">
+                                <div class="chat-bubble doctor-message p-3">
+                                    <p>Avez-vous d'autres symptômes ? Maux de tête, courbatures, fatigue ?</p>
+                                    <p class="text-xs text-gray-500 mt-1">10:34</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex mb-4">
+                                <div class="chat-bubble patient-message p-3">
+                                    <p>Oui, une légère fatigue mais pas de maux de tête importants.</p>
+                                    <p class="text-xs text-blue-100 mt-1">10:35</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex mb-4">
+                                <div class="chat-bubble doctor-message p-3">
+                                    <p>Cela ressemble à une infection virale. Je vous recommande du paracétamol pour la fièvre, du repos et une bonne hydratation. Si les symptômes persistent au-delà de 5 jours ou s'aggravent, consultez à nouveau.</p>
+                                    <p class="text-xs text-gray-500 mt-1">10:36</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="p-3 border-t border-gray-200 flex">
+                            <input type="text" placeholder="Écrivez votre message..." class="flex-1 border border-gray-300 rounded-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <button class="ml-2 w-10 h-10 rounded-full bg-blue-500 text-white flex items-center justify-center">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">Nos offres tarifaires</h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">Choisissez la formule qui correspond à vos besoins.</p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                <!-- Single Consultation -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden border border-gray-200 hover:border-blue-500 transition duration-300">
+                    <div class="p-6 border-b border-gray-200">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Consultation unique</h3>
+                        <p class="text-gray-600">Pour un besoin ponctuel</p>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-4xl font-bold text-gray-800 mb-4">5 000 FCFA <span class="text-lg font-normal text-gray-500">/consult</span></p>
+                        <ul class="space-y-3 mb-6">
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-green-500 mr-2"></i>
+                                <span>Consultation vidéo, chat ou téléphone</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-green-500 mr-2"></i>
+                                <span>Accès au dossier médical</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-green-500 mr-2"></i>
+                                <span>Rappels de traitement</span>
+                            </li>
+                            <li class="flex items-center text-gray-400">
+                                <i class="fas fa-times text-gray-300 mr-2"></i>
+                                <span>Pas de réduction sur les services additionnels</span>
+                            </li>
+                        </ul>
+                        <button class="w-full border border-blue-500 text-blue-500 hover:bg-blue-50 px-4 py-2 rounded-full font-medium transition">
+                            Choisir cette offre
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Family Plan -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden border-2 border-blue-500 relative">
+                    <div class="absolute top-0 right-0 bg-blue-500 text-white text-xs font-bold px-3 py-1 rounded-bl-lg">
+                        POPULAIRE
+                    </div>
+                    <div class="p-6 border-b border-gray-200">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Forfait famille</h3>
+                        <p class="text-gray-600">Jusqu'à 5 membres</p>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-4xl font-bold text-gray-800 mb-4">15 000 FCFA <span class="text-lg font-normal text-gray-500">/mois</span></p>
+                        <ul class="space-y-3 mb-6">
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-green-500 mr-2"></i>
+                                <span>4 consultations/mois</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-green-500 mr-2"></i>
+                                <span>Dossiers médicaux séparés</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-green-500 mr-2"></i>
+                                <span>Rappels pour tous les membres</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-green-500 mr-2"></i>
+                                <span>10% sur la livraison de médicaments</span>
+                            </li>
+                        </ul>
+                        <button class="w-full bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-full font-medium transition">
+                            Choisir cette offre
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Premium Plan -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden border border-gray-200 hover:border-purple-500 transition duration-300">
+                    <div class="p-6 border-b border-gray-200">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Forfait premium</h3>
+                        <p class="text-gray-600">Soins illimités</p>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-4xl font-bold text-gray-800 mb-4">25 000 FCFA <span class="text-lg font-normal text-gray-500">/mois</span></p>
+                        <ul class="space-y-3 mb-6">
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-green-500 mr-2"></i>
+                                <span>Consultations illimitées</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-green-500 mr-2"></i>
+                                <span>Accès prioritaire aux médecins</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-green-500 mr-2"></i>
+                                <span>Service d'urgence 24/7</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-green-500 mr-2"></i>
+                                <span>20% sur tous les services additionnels</span>
+                            </li>
+                        </ul>
+                        <button class="w-full border border-purple-500 text-purple-500 hover:bg-purple-50 px-4 py-2 rounded-full font-medium transition">
+                            Choisir cette offre
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-16 gradient-bg text-white">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-6">Prêt à essayer MediConnect ?</h2>
+            <p class="text-xl mb-8 max-w-2xl mx-auto">Inscrivez-vous maintenant et bénéficiez de votre première consultation à moitié prix.</p>
+            <div class="flex flex-col sm:flex-row justify-center space-y-3 sm:space-y-0 sm:space-x-4">
+                <a href="login_register.html">
+                    <button class="bg-white text-blue-600 hover:bg-gray-100 px-8 py-4 rounded-full font-bold text-lg transition">
+                        <i class="fas fa-user-plus mr-2"></i> S'inscrire
+                    </button>
+                </a>
+                
+                <button class="border-2 border-white text-white hover:bg-white hover:bg-opacity-10 px-8 py-4 rounded-full font-bold text-lg transition">
+                    <i class="fas fa-question-circle mr-2"></i> Poser une question
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="hidden md:block bg-gray-900 text-white pt-16 pb-8">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-4">
+                        <div class="w-10 h-10 rounded-full gradient-bg flex items-center justify-center">
+                            <i class="fas fa-heartbeat text-white text-xl"></i>
+                        </div>
+                        <span class="text-xl font-bold">MediConnect</span>
+                    </div>
+                    <p class="text-gray-400 mb-4">La télémédecine accessible à tous au Bénin.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Services</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">Consultation vidéo</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Consultation par chat</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Consultation téléphonique</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Dossiers médicaux</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Livraison de médicaments</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Entreprise</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">À propos</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Carrières</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Partenaires</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Presse</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Blog</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Contact</h3>
+                    <ul class="space-y-2">
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt text-gray-400 mr-2 mt-1"></i>
+                            <span class="text-gray-400">Rue 256, Cotonou, Bénin</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-phone-alt text-gray-400 mr-2"></i>
+                            <span class="text-gray-400">+229 60 12 34 56</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-envelope text-gray-400 mr-2"></i>
+                            <span class="text-gray-400">contact@mediconnect.bj</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-headset text-gray-400 mr-2"></i>
+                            <span class="text-gray-400">Support 24/7</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400 mb-4 md:mb-0">© 2025 MediConnect. Tous droits réservés.</p>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-400 hover:text-white">Conditions d'utilisation</a>
+                    <a href="#" class="text-gray-400 hover:text-white">Politique de confidentialité</a>
+                    <a href="#" class="text-gray-400 hover:text-white">Mentions légales</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+
+    <!-- Script for interactive elements -->
+    <script>
+        // Simple demo functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Doctor card favorite toggle
+            const favoriteButtons = document.querySelectorAll('.fa-heart');
+            favoriteButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    if (this.classList.contains('far')) {
+                        this.classList.remove('far');
+                        this.classList.add('fas', 'text-red-400');
+                    } else {
+                        this.classList.remove('fas', 'text-red-400');
+                        this.classList.add('far', 'text-gray-400');
+                    }
+                });
+            });
+            
+            // Consultation type selector
+            const consultationTypes = document.querySelectorAll('.consultation-type');
+            consultationTypes.forEach(type => {
+                type.addEventListener('click', function() {
+                    consultationTypes.forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+            
+            // Mobile menu toggle (placeholder)
+            const mobileMenuButton = document.querySelector('.md\\:hidden.text-gray-600');
+            mobileMenuButton.addEventListener('click', function() {
+                alert('Mobile menu would open here in a full implementation.');
+            });
+            
+            // Demo chat functionality
+            const chatInput = document.querySelector('.chat-demo input');
+            const chatSendButton = document.querySelector('.chat-demo button');
+            const chatMessages = document.querySelector('.chat-demo .messages');
+            
+            if (chatSendButton && chatInput) {
+                chatSendButton.addEventListener('click', function() {
+                    if (chatInput.value.trim() !== '') {
+                        const message = document.createElement('div');
+                        message.className = 'flex justify-end mb-2';
+                        message.innerHTML = `
+                            <div class="bg-blue-500 text-white rounded-lg px-4 py-2 max-w-xs">
+                                ${chatInput.value}
+                                <div class="text-xs text-blue-100 mt-1">${new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</div>
+                            </div>
+                        `;
+                        chatMessages.appendChild(message);
+                        chatMessages.scrollTop = chatMessages.scrollHeight;
+                        
+                        // Simulate doctor response
+                        setTimeout(() => {
+                            const response = document.createElement('div');
+                            response.className = 'flex justify-start mb-2';
+                            response.innerHTML = `
+                                <div class="bg-gray-200 rounded-lg px-4 py-2 max-w-xs">
+                                    Je comprends. Avez-vous d'autres symptômes à signaler ?
+                                    <div class="text-xs text-gray-500 mt-1">${new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</div>
+                                </div>
+                            `;
+                            chatMessages.appendChild(response);
+                            chatMessages.scrollTop = chatMessages.scrollHeight;
+                        }, 1000);
+                        
+                        chatInput.value = '';
+                    }
+                });
+                
+                chatInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        chatSendButton.click();
+                    }
+                });
+            }
+        });
+    </script>
+     <!-- À placer dans le <body> de chaque page HTML -->
+    <div id="navbar-mobile-placeholder"></div>
+<script>
+    fetch('navbar_mobile.html')
+        .then(res => res.text())
+        .then(html => {
+            document.getElementById('navbar-mobile-placeholder').innerHTML = html;
+
+            // Si on veut afficher tous les éléments, on n'applique aucun filtrage :
+            // const showIcons = [...]; → supprimé ou ignoré
+
+            /*
+            // Ce bloc n'est plus nécessaire si on veut tout afficher :
+            const allIcons = [
+                'nav-accueil',
+                'nav-consultation',
+                'nav-dossiers',
+                'nav-services',
+                'nav-medecin',
+                'nav-pharmacie',
+                'nav-notation',
+                'nav-notification'
+            ];
+            allIcons.forEach(id => {
+                if (!showIcons.includes(id)) {
+                    const el = document.getElementById(id);
+                    if (el) el.style.display = 'none';
+                }
+            });
+            */
+        });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediConnect Benin - Plateforme de Télémédecine</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .auth-container {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+        .role-selector {
+            transition: all 0.3s ease;
+        }
+        .role-selector.active {
+            background-color: #3b82f6;
+            color: white;
+        }
+        .input-field {
+            transition: border 0.3s ease;
+        }
+        .input-field:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 1px #3b82f6;
+        }
+        .toggle-password {
+            cursor: pointer;
+        }
+        .verification-badge {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background-color: #10b981;
+            color: white;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body class="font-sans bg-gray-50">
+    <!-- Header -->
+    <header class="bg-white shadow-sm">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center">
+                <i class="fas fa-heartbeat text-blue-500 text-3xl mr-3"></i>
+                <h1 class="text-2xl font-bold text-blue-800">MediConnect</h1>
+            </div>
+            <nav class="hidden md:flex space-x-8">
+                <a href="index.html" class="nav-link text-gray-600 hover:text-blue-500 font-medium">Accueil</a>
+                <a href="consultation_en_ligne.html" class="nav-link text-gray-600 hover:text-blue-500 font-medium">Consultation</a>
+                <a href="dossier_medical_du_patient.html" class="nav-link text-gray-600 hover:text-blue-500 font-medium">Dossiers</a>
+                <a href="conseil_médicaux.html" class="nav-link text-gray-600 hover:text-blue-500 font-medium">Services</a>
+                <a href="liste_médécin.html" class="nav-link text-gray-600 hover:text-blue-500 font-medium">Médécin</a>
+                <a href="liste_phamarcie.html" class="nav-link text-gray-600 hover:text-blue-500 font-medium">Phamarcie</a>
+                <a href="notation_des_médécins.html" class="nav-link text-gray-600 hover:text-blue-500 font-medium">Notation</a>
+                <a href="système_de_rapport_médicaux.html" class="nav-link text-gray-600 hover:text-blue-500 font-medium">Notification</a>
+            </nav>
+            <button class="md:hidden text-gray-600">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        <!-- Auth Tabs -->
+        <div class="max-w-4xl mx-auto mb-8">
+            <div class="flex justify-center space-x-4">
+                <button id="login-tab" class="px-6 py-3 font-medium text-blue-600 border-b-2 border-blue-600">Connexion</button>
+                <button id="register-tab" class="px-6 py-3 font-medium text-gray-500 border-b-2 border-transparent">Inscription</button>
+            </div>
+        </div>
+
+        <!-- Login Form (Default) -->
+        <div id="login-form" class="max-w-md mx-auto auth-container rounded-xl shadow-lg overflow-hidden p-8">
+            <h2 class="text-2xl font-bold text-center text-gray-800 mb-6">Connectez-vous à votre compte</h2>
+            
+            <!-- Role Selector -->
+            <div class="flex mb-6 bg-gray-100 rounded-lg p-1">
+                <button class="role-selector active flex-1 py-2 px-4 rounded-lg" data-role="patient">
+                    <i class="fas fa-user mr-2"></i> Patient
+                </button>
+                <button class="role-selector flex-1 py-2 px-4 rounded-lg" data-role="doctor">
+                    <i class="fas fa-user-md mr-2"></i> Médecin
+                </button>
+                <button class="role-selector flex-1 py-2 px-4 rounded-lg" data-role="pharmacy">
+                    <i class="fas fa-prescription-bottle-alt mr-2"></i> Pharmacie
+                </button>
+            </div>
+            
+            <!-- Login Form -->
+            <form id="patient-login" class="login-form active">
+                <div class="mb-4">
+                    <label for="patient-email" class="block text-gray-700 mb-2">Email</label>
+                    <input type="email" id="patient-email" class="w-full px-4 py-2 border rounded-lg input-field" placeholder="votre@email.com" required>
+                </div>
+                <div class="mb-6">
+                    <label for="patient-password" class="block text-gray-700 mb-2">Mot de passe</label>
+                    <div class="relative">
+                        <input type="password" id="patient-password" class="w-full px-4 py-2 border rounded-lg input-field pr-10" placeholder="••••••••" required>
+                        <span class="absolute right-3 top-3 toggle-password" onclick="togglePassword('patient-password')">
+                            <i class="fas fa-eye text-gray-400"></i>
+                        </span>
+                    </div>
+                    <div class="text-right mt-1">
+                        <a href="#" class="text-sm text-blue-600 hover:underline">Mot de passe oublié?</a>
+                    </div>
+                </div>
+                <button type="submit" class="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition duration-300">
+                    Se connecter
+                </button>
+            </form>
+            
+            <!-- Doctor Login (hidden by default) -->
+            <form id="doctor-login" class="login-form hidden">
+                <div class="mb-4">
+                    <label for="doctor-email" class="block text-gray-700 mb-2">Email professionnel</label>
+                    <input type="email" id="doctor-email" class="w-full px-4 py-2 border rounded-lg input-field" placeholder="professionnel@email.com" required>
+                </div>
+                <div class="mb-6">
+                    <label for="doctor-password" class="block text-gray-700 mb-2">Mot de passe</label>
+                    <div class="relative">
+                        <input type="password" id="doctor-password" class="w-full px-4 py-2 border rounded-lg input-field pr-10" placeholder="••••••••" required>
+                        <span class="absolute right-3 top-3 toggle-password" onclick="togglePassword('doctor-password')">
+                            <i class="fas fa-eye text-gray-400"></i>
+                        </span>
+                    </div>
+                    <div class="text-right mt-1">
+                        <a href="#" class="text-sm text-blue-600 hover:underline">Mot de passe oublié?</a>
+                    </div>
+                </div>
+                <button type="submit" class="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition duration-300">
+                    Se connecter
+                </button>
+            </form>
+            
+            <!-- Pharmacy Login (hidden by default) -->
+            <form id="pharmacy-login" class="login-form hidden">
+                <div class="mb-4">
+                    <label for="pharmacy-email" class="block text-gray-700 mb-2">Email professionnel</label>
+                    <input type="email" id="pharmacy-email" class="w-full px-4 py-2 border rounded-lg input-field" placeholder="pharmacie@email.com" required>
+                </div>
+                <div class="mb-6">
+                    <label for="pharmacy-password" class="block text-gray-700 mb-2">Mot de passe</label>
+                    <div class="relative">
+                        <input type="password" id="pharmacy-password" class="w-full px-4 py-2 border rounded-lg input-field pr-10" placeholder="••••••••" required>
+                        <span class="absolute right-3 top-3 toggle-password" onclick="togglePassword('pharmacy-password')">
+                            <i class="fas fa-eye text-gray-400"></i>
+                        </span>
+                    </div>
+                    <div class="text-right mt-1">
+                        <a href="#" class="text-sm text-blue-600 hover:underline">Mot de passe oublié?</a>
+                    </div>
+                </div>
+                <button type="submit" class="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition duration-300">
+                    Se connecter
+                </button>
+            </form>
+            
+            <div class="mt-6 text-center">
+                <p class="text-gray-600">Vous n'avez pas de compte? <button id="switch-to-register" class="text-blue-600 hover:underline">S'inscrire</button></p>
+            </div>
+        </div>
+        
+        <!-- Registration Form (Hidden by default) -->
+        <div id="register-form" class="max-w-4xl mx-auto auth-container rounded-xl shadow-lg overflow-hidden p-8 hidden">
+            <h2 class="text-2xl font-bold text-center text-gray-800 mb-6">Créez un compte</h2>
+            
+            <!-- Role Selector -->
+            <div class="flex mb-6 bg-gray-100 rounded-lg p-1">
+                <button class="role-selector active flex-1 py-2 px-4 rounded-lg" data-role="patient">
+                    <i class="fas fa-user mr-2"></i> Patient
+                </button>
+                <button class="role-selector flex-1 py-2 px-4 rounded-lg" data-role="doctor">
+                    <i class="fas fa-user-md mr-2"></i> Médecin
+                </button>
+                <button class="role-selector flex-1 py-2 px-4 rounded-lg" data-role="pharmacy">
+                    <i class="fas fa-prescription-bottle-alt mr-2"></i> Pharmacie
+                </button>
+            </div>
+            
+            <!-- Patient Registration -->
+            <form id="patient-register" class="register-form active grid md:grid-cols-2 gap-6">
+                <div class="md:col-span-2">
+                    <h3 class="text-lg font-semibold text-gray-700 mb-4">Informations personnelles</h3>
+                </div>
+                
+                <div>
+                    <label for="patient-firstname" class="block text-gray-700 mb-2">Prénom</label>
+                    <input type="text" id="patient-firstname" class="w-full px-4 py-2 border rounded-lg input-field" placeholder="Jean" required>
+                </div>
+                
+                <div>
+                    <label for="patient-lastname" class="block text-gray-700 mb-2">Nom</label>
+                    <input type="text" id="patient-lastname" class="w-full px-4 py-2 border rounded-lg input-field" placeholder="Dupont" required>
+                </div>
+                
+                <div>
+                    <label for="patient-dob" class="block text-gray-700 mb-2">Date de naissance</label>
+                    <input type="date" id="patient-dob" class="w-full px-4 py-2 border rounded-lg input-field" required>
+                </div>
+                
+                <div>
+                    <label for="patient-gender" class="block text-gray-700 mb-2">Sexe</label>
+                    <select id="patient-gender" class="w-full px-4 py-2 border rounded-lg input-field" required>
+                        <option value="">Sélectionner</option>
+                        <option value="male">Masculin</option>
+                        <option value="female">Féminin</option>
+                        <option value="other">Autre</option>
+                    </select>
+                </div>
+                
+                <div class="md:col-span-2">
+                    <label for="patient-address" class="block text-gray-700 mb-2">Adresse</label>
+                    <input type="text" id="patient-address" class="w-full px-4 py-2 border rounded-lg input-field" placeholder="123 Rue des Manguiers, Cotonou" required>
+                </div>
+                
+                <div>
+                    <label for="patient-phone" class="block text-gray-700 mb-2">Téléphone</label>
+                    <input type="tel" id="patient-phone" class="w-full px-4 py-2 border rounded-lg input-field" placeholder="+229 12 34 56 78" required>
+                </div>
+                
+                <div>
+                    <label for="patient-email-reg" class="block text-gray-700 mb-2">Email</label>
+                    <input type="email" id="patient-email-reg" class="w-full px-4 py-2 border rounded-lg input-field" placeholder="votre@email.com" required>
+                </div>
+                
+                <div>
+                    <label for="patient-password-reg" class="block text-gray-700 mb-2">Mot de passe</label>
+                    <div class="relative">
+                        <input type="password" id="patient-password-reg" class="w-full px-4 py-2 border rounded-lg input-field pr-10" placeholder="••••••••" required>
+                        <span class="absolute right-3 top-3 toggle-password" onclick="togglePassword('patient-password-reg')">
+                            <i class="fas fa-eye text-gray-400"></i>
+                        </span>
+                    </div>
+                </div>
+                
+                <div>
+                    <label for="patient-confirm-password" class="block text-gray-700 mb-2">Confirmer le mot de passe</label>
+                    <div class="relative">
+                        <input type="password" id="patient-confirm-password" class="w-full px-4 py-2 border rounded-lg input-field pr-10" placeholder="••••••••" required>
+                        <span class="absolute right-3 top-3 toggle-password" onclick="togglePassword('patient-confirm-password')">
+                            <i class="fas fa-eye text-gray-400"></i>
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="md:col-span-2">
+                    <div class="flex items-start">
+                        <input type="checkbox" id="patient-terms" class="mt-1 mr-2" required>
+                        <label for="patient-terms" class="text-gray-700 text-sm">
+                            J'accepte les <a href="#" class="text-blue-600 hover:underline">Conditions d'utilisation</a> et la <a href="#" class="text-blue-600 hover:underline">Politique de confidentialité</a> de TeleMed Benin
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="md:col-span-2">
+                    <button type="submit" class="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition duration-300">
+                        S'inscrire
+                    </button>
+                </div>
+            </form>
+            
+            <!-- Doctor Registration (hidden by default) -->
+            <form id="doctor-register" class="register-form hidden grid md:grid-cols-2 gap-6">
+                <div class="md:col-span-2">
+                    <h3 class="text-lg font-semibold text-gray-700 mb-4">Informations personnelles</h3>
+                </div>
+                
+                <div>
+                    <label for="doctor-firstname" class="block text-gray-700 mb-2">Prénom</label>
+                    <input type="text" id="doctor-firstname" class="w-full px-4 py-2 border rounded-lg input-field" placeholder="Dr. Jean" required>
+                </div>
+                
+                <div>
+                    <label for="doctor-lastname" class="block text-gray-700 mb-2">Nom</label>
+                    <input type="text" id="doctor-lastname" class="w-full px-4 py-2 border rounded-lg input-field" placeholder="Dupont" required>
+                </div>
+                
+                <div>
+                    <label for="doctor-specialty" class="block text-gray-700 mb-2">Spécialité</label>
+                    <select id="doctor-specialty" class="w-full px-4 py-2 border rounded-lg input-field" required>
+                        <option value="">Sélectionner une spécialité</option>
+                        <option value="general">Médecine générale</option>
+                        <option value="cardiology">Cardiologie</option>
+                        <option value="pediatrics">Pédiatrie</option>
+                        <option value="dermatology">Dermatologie</option>
+                        <option value="gynecology">Gynécologie</option>
+                        <option value="other">Autre</option>
+                    </select>
+                </div>
+                
+                <div>
+                    <label for="doctor-years" class="block text-gray-700 mb-2">Années d'expérience</label>
+                    <input type="number" id="doctor-years" class="w-full px-4 py-2 border rounded-lg input-field" placeholder="5" min="0" required>
+                </div>
+                
+                <div class="md:col-span-2">
+                    <label for="doctor-address" class="block text-gray-700 mb-2">Adresse du cabinet</label>
+                    <input type="text" id="doctor-address" class="w-full px-4 py-2 border rounded-lg input-field" placeholder="456 Avenue de la Santé, Cotonou" required>
+                </div>
+                
+                <div>
+                    <label for="doctor-phone" class="block text-gray-700 mb-2">Téléphone professionnel</label>
+                    <input type="tel" id="doctor-phone" class="w-full px-4 py-2 border rounded-lg input-field" placeholder="+229 98 76 54 32" required>
+                </div>
+                
+                <div>
+                    <label for="doctor-email-reg" class="block text-gray-700 mb-2">Email professionnel</label>
+                    <input type="email" id="doctor-email-reg" class="w-full px-4 py-2 border rounded-lg input-field" placeholder="professionnel@email.com" required>
+                </div>
+                
+                <div class="md:col-span-2 relative">
+                    <label for="doctor-license" class="block text-gray-700 mb-2">Numéro de licence médicale</label>
+                    <input type="text" id="doctor-license" class="w-full px-4 py-2 border rounded-lg input-field" placeholder="BEN-MED-123456" required>
+                    <div class="verification-badge">
+                        <i class="fas fa-check"></i>
+                    </div>
+                    <p class="text-xs text-gray-500 mt-1">Nous vérifierons votre licence auprès de l'Ordre des Médecins du Bénin</p>
+                </div>
+                
+                <div>
+                    <label for="doctor-password-reg" class="block text-gray-700 mb-2">Mot de passe</label>
+                    <div class="relative">
+                        <input type="password" id="doctor-password-reg" class="w-full px-4 py-2 border rounded-lg input-field pr-10" placeholder="••••••••" required>
+                        <span class="absolute right-3 top-3 toggle-password" onclick="togglePassword('doctor-password-reg')">
+                            <i class="fas fa-eye text-gray-400"></i>
+                        </span>
+                    </div>
+                </div>
+                
+                <div>
+                    <label for="doctor-confirm-password" class="block text-gray-700 mb-2">Confirmer le mot de passe</label>
+                    <div class="relative">
+                        <input type="password" id="doctor-confirm-password" class="w-full px-4 py-2 border rounded-lg input-field pr-10" placeholder="••••••••" required>
+                        <span class="absolute right-3 top-3 toggle-password" onclick="togglePassword('doctor-confirm-password')">
+                            <i class="fas fa-eye text-gray-400"></i>
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="md:col-span-2">
+                    <div class="flex items-start">
+                        <input type="checkbox" id="doctor-terms" class="mt-1 mr-2" required>
+                        <label for="doctor-terms" class="text-gray-700 text-sm">
+                            J'accepte les <a href="#" class="text-blue-600 hover:underline">Conditions d'utilisation</a> et la <a href="#" class="text-blue-600 hover:underline">Politique de confidentialité</a> de TeleMed Benin
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="md:col-span-2">
+                    <button type="submit" class="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition duration-300">
+                        S'inscrire
+                    </button>
+                </div>
+            </form>
+            
+            <!-- Pharmacy Registration (hidden by default) -->
+            <form id="pharmacy-register" class="register-form hidden grid md:grid-cols-2 gap-6">
+                <div class="md:col-span-2">
+                    <h3 class="text-lg font-semibold text-gray-700 mb-4">Informations sur la pharmacie</h3>
+                </div>
+                
+                <div class="md:col-span-2">
+                    <label for="pharmacy-name" class="block text-gray-700 mb-2">Nom de la pharmacie</label>
+                    <input type="text" id="pharmacy-name" class="w-full px-4 py-2 border rounded-lg input-field" placeholder="Pharmacie du Bien-Être" required>
+                </div>
+                
+                <div>
+                    <label for="pharmacy-owner" class="block text-gray-700 mb-2">Nom du propriétaire</label>
+                    <input type="text" id="pharmacy-owner" class="w-full px-4 py-2 border rounded-lg input-field" placeholder="M. Koffi Adékambi" required>
+                </div>
+                
+                <div>
+                    <label for="pharmacy-years" class="block text-gray-700 mb-2">Années d'activité</label>
+                    <input type="number" id="pharmacy-years" class="w-full px-4 py-2 border rounded-lg input-field" placeholder="3" min="0" required>
+                </div>
+                
+                <div class="md:col-span-2">
+                    <label for="pharmacy-address" class="block text-gray-700 mb-2">Adresse de la pharmacie</label>
+                    <input type="text" id="pharmacy-address" class="w-full px-4 py-2 border rounded-lg input-field" placeholder="789 Boulevard de la Santé, Porto-Novo" required>
+                </div>
+                
+                <div>
+                    <label for="pharmacy-phone" class="block text-gray-700 mb-2">Téléphone</label>
+                    <input type="tel" id="pharmacy-phone" class="w-full px-4 py-2 border rounded-lg input-field" placeholder="+229 21 12 34 56" required>
+                </div>
+                
+                <div>
+                    <label for="pharmacy-email-reg" class="block text-gray-700 mb-2">Email professionnel</label>
+                    <input type="email" id="pharmacy-email-reg" class="w-full px-4 py-2 border rounded-lg input-field" placeholder="contact@pharmacie.com" required>
+                </div>
+                
+                <div class="md:col-span-2 relative">
+                    <label for="pharmacy-license" class="block text-gray-700 mb-2">Numéro d'autorisation d'ouverture</label>
+                    <input type="text" id="pharmacy-license" class="w-full px-4 py-2 border rounded-lg input-field" placeholder="PH-BEN-789012" required>
+                    <div class="verification-badge">
+                        <i class="fas fa-check"></i>
+                    </div>
+                    <p class="text-xs text-gray-500 mt-1">Nous vérifierons votre autorisation auprès du Ministère de la Santé</p>
+                </div>
+                
+                <div>
+                    <label for="pharmacy-password-reg" class="block text-gray-700 mb-2">Mot de passe</label>
+                    <div class="relative">
+                        <input type="password" id="pharmacy-password-reg" class="w-full px-4 py-2 border rounded-lg input-field pr-10" placeholder="••••••••" required>
+                        <span class="absolute right-3 top-3 toggle-password" onclick="togglePassword('pharmacy-password-reg')">
+                            <i class="fas fa-eye text-gray-400"></i>
+                        </span>
+                    </div>
+                </div>
+                
+                <div>
+                    <label for="pharmacy-confirm-password" class="block text-gray-700 mb-2">Confirmer le mot de passe</label>
+                    <div class="relative">
+                        <input type="password" id="pharmacy-confirm-password" class="w-full px-4 py-2 border rounded-lg input-field pr-10" placeholder="••••••••" required>
+                        <span class="absolute right-3 top-3 toggle-password" onclick="togglePassword('pharmacy-confirm-password')">
+                            <i class="fas fa-eye text-gray-400"></i>
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="md:col-span-2">
+                    <div class="flex items-start">
+                        <input type="checkbox" id="pharmacy-delivery" class="mt-1 mr-2">
+                        <label for="pharmacy-delivery" class="text-gray-700 text-sm">
+                            Je propose un service de livraison de médicaments
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="md:col-span-2">
+                    <div class="flex items-start">
+                        <input type="checkbox" id="pharmacy-terms" class="mt-1 mr-2" required>
+                        <label for="pharmacy-terms" class="text-gray-700 text-sm">
+                            J'accepte les <a href="#" class="text-blue-600 hover:underline">Conditions d'utilisation</a> et la <a href="#" class="text-blue-600 hover:underline">Politique de confidentialité</a> de TeleMed Benin
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="md:col-span-2">
+                    <button type="submit" class="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition duration-300">
+                        S'inscrire
+                    </button>
+                </div>
+            </form>
+            
+            <div class="mt-6 text-center">
+                <p class="text-gray-600">Vous avez déjà un compte? <button id="switch-to-login" class="text-blue-600 hover:underline">Se connecter</button></p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="hidden md:block bg-gray-900 text-white pt-16 pb-8">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-4">
+                        <div class="w-10 h-10 rounded-full gradient-bg flex items-center justify-center">
+                            <i class="fas fa-heartbeat text-white text-xl"></i>
+                        </div>
+                        <span class="text-xl font-bold">MediConnect</span>
+                    </div>
+                    <p class="text-gray-400 mb-4">La télémédecine accessible à tous au Bénin.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Services</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">Consultation vidéo</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Consultation par chat</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Consultation téléphonique</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Dossiers médicaux</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Livraison de médicaments</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Entreprise</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">À propos</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Carrières</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Partenaires</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Presse</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Blog</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Contact</h3>
+                    <ul class="space-y-2">
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt text-gray-400 mr-2 mt-1"></i>
+                            <span class="text-gray-400">Rue 256, Cotonou, Bénin</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-phone-alt text-gray-400 mr-2"></i>
+                            <span class="text-gray-400">+229 60 12 34 56</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-envelope text-gray-400 mr-2"></i>
+                            <span class="text-gray-400">contact@mediconnect.bj</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-headset text-gray-400 mr-2"></i>
+                            <span class="text-gray-400">Support 24/7</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400 mb-4 md:mb-0">© 2025 MediConnect. Tous droits réservés.</p>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-400 hover:text-white">Conditions d'utilisation</a>
+                    <a href="#" class="text-gray-400 hover:text-white">Politique de confidentialité</a>
+                    <a href="#" class="text-gray-400 hover:text-white">Mentions légales</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Toggle between login and register forms
+        document.getElementById('login-tab').addEventListener('click', function() {
+            document.getElementById('login-form').classList.remove('hidden');
+            document.getElementById('register-form').classList.add('hidden');
+            this.classList.add('border-blue-600', 'text-blue-600');
+            document.getElementById('register-tab').classList.remove('border-blue-600', 'text-blue-600');
+            document.getElementById('register-tab').classList.add('text-gray-500', 'border-transparent');
+            this.classList.remove('text-gray-500', 'border-transparent');
+        });
+        
+        document.getElementById('register-tab').addEventListener('click', function() {
+            document.getElementById('register-form').classList.remove('hidden');
+            document.getElementById('login-form').classList.add('hidden');
+            this.classList.add('border-blue-600', 'text-blue-600');
+            document.getElementById('login-tab').classList.remove('border-blue-600', 'text-blue-600');
+            document.getElementById('login-tab').classList.add('text-gray-500', 'border-transparent');
+            this.classList.remove('text-gray-500', 'border-transparent');
+        });
+        
+        document.getElementById('switch-to-register').addEventListener('click', function() {
+            document.getElementById('register-form').classList.remove('hidden');
+            document.getElementById('login-form').classList.add('hidden');
+            document.getElementById('register-tab').classList.add('border-blue-600', 'text-blue-600');
+            document.getElementById('login-tab').classList.remove('border-blue-600', 'text-blue-600');
+            document.getElementById('login-tab').classList.add('text-gray-500', 'border-transparent');
+            document.getElementById('register-tab').classList.remove('text-gray-500', 'border-transparent');
+        });
+        
+        document.getElementById('switch-to-login').addEventListener('click', function() {
+            document.getElementById('login-form').classList.remove('hidden');
+            document.getElementById('register-form').classList.add('hidden');
+            document.getElementById('login-tab').classList.add('border-blue-600', 'text-blue-600');
+            document.getElementById('register-tab').classList.remove('border-blue-600', 'text-blue-600');
+            document.getElementById('register-tab').classList.add('text-gray-500', 'border-transparent');
+            document.getElementById('login-tab').classList.remove('text-gray-500', 'border-transparent');
+        });
+        
+        // Toggle between patient, doctor and pharmacy forms
+        const roleSelectors = document.querySelectorAll('.role-selector');
+        
+        roleSelectors.forEach(selector => {
+            selector.addEventListener('click', function() {
+                const role = this.getAttribute('data-role');
+                
+                // Update active state for all selectors
+                roleSelectors.forEach(s => {
+                    s.classList.remove('active', 'bg-blue-600', 'text-white');
+                    s.classList.add('bg-white', 'text-gray-700');
+                });
+                
+                this.classList.add('active', 'bg-blue-600', 'text-white');
+                this.classList.remove('bg-white', 'text-gray-700');
+                
+                // Show the appropriate form
+                if (document.getElementById('login-form').classList.contains('hidden')) {
+                    // Registration forms
+                    document.querySelectorAll('.register-form').forEach(form => {
+                        form.classList.add('hidden');
+                        form.classList.remove('active');
+                    });
+                    document.getElementById(`${role}-register`).classList.remove('hidden');
+                    document.getElementById(`${role}-register`).classList.add('active');
+                } else {
+                    // Login forms
+                    document.querySelectorAll('.login-form').forEach(form => {
+                        form.classList.add('hidden');
+                        form.classList.remove('active');
+                    });
+                    document.getElementById(`${role}-login`).classList.remove('hidden');
+                    document.getElementById(`${role}-login`).classList.add('active');
+                }
+            });
+        });
+        
+        // Toggle password visibility
+        function togglePassword(fieldId) {
+            const field = document.getElementById(fieldId);
+            const icon = field.nextElementSibling.querySelector('i');
+            
+            if (field.type === 'password') {
+                field.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                field.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        }
+        
+        // Form submission
+        document.getElementById('patient-login').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Connexion patient réussie! Redirection...');
+            // Here you would typically handle the login logic
+        });
+        
+        document.getElementById('doctor-login').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Connexion médecin réussie! Redirection...');
+        });
+        
+        document.getElementById('pharmacy-login').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Connexion pharmacie réussie! Redirection...');
+        });
+        
+        document.getElementById('patient-register').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Inscription patient réussie! Un email de confirmation a été envoyé.');
+            // Here you would typically handle the registration logic
+        });
+        
+        document.getElementById('doctor-register').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Inscription médecin reçue! Votre compte sera activé après vérification de votre licence.');
+        });
+        
+        document.getElementById('pharmacy-register').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Inscription pharmacie reçue! Votre compte sera activé après vérification de votre autorisation.');
+        });
+    </script>
+</body>
+</html>

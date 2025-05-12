@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediConnect - Mon Dossier Médical Numérique</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 3px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+        .fade-in {
+            animation: fadeIn 0.3s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        body {
+    padding-bottom: 60px; /* Ajuste selon la hauteur de ta nav */
+  }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+    <div class="min-h-screen flex flex-col">
+        <!-- Header -->
+        <header class="bg-blue-600 text-white shadow-md">
+            <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+                <div class="flex items-center space-x-3">
+                    <i class="fas fa-heartbeat text-2xl"></i>
+                    <h1 class="text-2xl font-bold">MediConnect</h1>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="relative group">
+                        <button class="flex items-center space-x-2 focus:outline-none">
+                            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Profil" class="w-10 h-10 rounded-full border-2 border-white">
+                            <span>Marie Dupont</span>
+                            <i class="fas fa-chevron-down text-sm"></i>
+                        </button>
+                        <div class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-10 hidden group-hover:block">
+                            <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-blue-100">Mon compte</a>
+                            <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-blue-100">Paramètres</a>
+                            <div class="border-t border-gray-200"></div>
+                            <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-blue-100">Déconnexion</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        
+
+            <!-- Medical Records Section -->
+            <section class="flex-1">
+                <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <!-- Records Header -->
+                    <div class="bg-blue-600 text-white px-6 py-4 flex justify-between items-center">
+                        <h2 class="text-xl font-semibold">
+                            <i class="fas fa-file-medical mr-2"></i>
+                            Mon dossier médical
+                        </h2>
+                        <button id="addRecordBtn" class="bg-white text-blue-600 px-4 py-2 rounded-md hover:bg-blue-50 transition flex items-center">
+                            <i class="fas fa-plus mr-2"></i>
+                            Ajouter un document
+                        </button>
+                    </div>
+
+                    <!-- Records Filter -->
+                    <div class="px-6 py-4 border-b">
+                        <div class="flex flex-col md:flex-row md:items-center md:justify-between space-y-4 md:space-y-0">
+                            <div class="relative w-full md:w-64">
+                                <input type="text" placeholder="Rechercher..." class="w-full pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-300">
+                                <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+                            </div>
+                            <div class="flex space-x-2">
+                                <select class="border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-300">
+                                    <option>Trier par</option>
+                                    <option>Date récente</option>
+                                    <option>Date ancienne</option>
+                                    <option>Type de document</option>
+                                </select>
+                                <select class="border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-300">
+                                    <option>Tous les types</option>
+                                    <option>Consultation</option>
+                                    <option>Analyse</option>
+                                    <option>Imagerie</option>
+                                    <option>Hospitalisation</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Records List -->
+                    <div class="custom-scrollbar overflow-y-auto" style="max-height: 500px;">
+                        <div class="divide-y">
+                            <!-- Record Item 1 -->
+                            <div class="p-6 hover:bg-gray-50 transition cursor-pointer">
+                                <div class="flex flex-col md:flex-row md:items-center md:justify-between">
+                                    <div class="flex items-start space-x-4">
+                                        <div class="bg-blue-100 text-blue-600 p-3 rounded-lg">
+                                            <i class="fas fa-stethoscope text-xl"></i>
+                                        </div>
+                                        <div>
+                                            <h3 class="font-medium text-gray-900">Consultation cardiologie</h3>
+                                            <p class="text-sm text-gray-500">Dr. Martin Lefèvre - Clinique du Cœur</p>
+                                            <div class="mt-2 flex flex-wrap gap-2">
+                                                <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded">Cardiologie</span>
+                                                <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">Consultation</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mt-4 md:mt-0 flex items-center space-x-4">
+                                        <span class="text-sm text-gray-500">15/06/2023</span>
+                                        <button class="text-blue-600 hover:text-blue-800">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="text-gray-500 hover:text-gray-700">
+                                            <i class="fas fa-download"></i>
+                                        </button>
+                                        <button class="text-gray-500 hover:text-red-500">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Record Item 2 -->
+                            <div class="p-6 hover:bg-gray-50 transition cursor-pointer">
+                                <div class="flex flex-col md:flex-row md:items-center md:justify-between">
+                                    <div class="flex items-start space-x-4">
+                                        <div class="bg-green-100 text-green-600 p-3 rounded-lg">
+                                            <i class="fas fa-vial text-xl"></i>
+                                        </div>
+                                        <div>
+                                            <h3 class="font-medium text-gray-900">Analyse sanguine complète</h3>
+                                            <p class="text-sm text-gray-500">Laboratoire BioSanté</p>
+                                            <div class="mt-2 flex flex-wrap gap-2">
+                                                <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">Biologie</span>
+                                                <span class="bg-purple-100 text-purple-800 text-xs px-2 py-1 rounded">Analyse</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mt-4 md:mt-0 flex items-center space-x-4">
+                                        <span class="text-sm text-gray-500">10/06/2023</span>
+                                        <button class="text-blue-600 hover:text-blue-800">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="text-gray-500 hover:text-gray-700">
+                                            <i class="fas fa-download"></i>
+                                        </button>
+                                        <button class="text-gray-500 hover:text-red-500">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Record Item 3 -->
+                            <div class="p-6 hover:bg-gray-50 transition cursor-pointer">
+                                <div class="flex flex-col md:flex-row md:items-center md:justify-between">
+                                    <div class="flex items-start space-x-4">
+                                        <div class="bg-purple-100 text-purple-600 p-3 rounded-lg">
+                                            <i class="fas fa-x-ray text-xl"></i>
+                                        </div>
+                                        <div>
+                                            <h3 class="font-medium text-gray-900">Radiographie thoracique</h3>
+                                            <p class="text-sm text-gray-500">Centre d'Imagerie Médicale</p>
+                                            <div class="mt-2 flex flex-wrap gap-2">
+                                                <span class="bg-purple-100 text-purple-800 text-xs px-2 py-1 rounded">Radiologie</span>
+                                                <span class="bg-yellow-100 text-yellow-800 text-xs px-2 py-1 rounded">Imagerie</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mt-4 md:mt-0 flex items-center space-x-4">
+                                        <span class="text-sm text-gray-500">05/06/2023</span>
+                                        <button class="text-blue-600 hover:text-blue-800">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="text-gray-500 hover:text-gray-700">
+                                            <i class="fas fa-download"></i>
+                                        </button>
+                                        <button class="text-gray-500 hover:text-red-500">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Record Item 4 -->
+                            <div class="p-6 hover:bg-gray-50 transition cursor-pointer">
+                                <div class="flex flex-col md:flex-row md:items-center md:justify-between">
+                                    <div class="flex items-start space-x-4">
+                                        <div class="bg-yellow-100 text-yellow-600 p-3 rounded-lg">
+                                            <i class="fas fa-procedures text-xl"></i>
+                                        </div>
+                                        <div>
+                                            <h3 class="font-medium text-gray-900">Hospitalisation</h3>
+                                            <p class="text-sm text-gray-500">Hôpital Saint-Louis - Chirurgie</p>
+                                            <div class="mt-2 flex flex-wrap gap-2">
+                                                <span class="bg-yellow-100 text-yellow-800 text-xs px-2 py-1 rounded">Chirurgie</span>
+                                                <span class="bg-red-100 text-red-800 text-xs px-2 py-1 rounded">Hospitalisation</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mt-4 md:mt-0 flex items-center space-x-4">
+                                        <span class="text-sm text-gray-500">20/05/2023</span>
+                                        <button class="text-blue-600 hover:text-blue-800">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="text-gray-500 hover:text-gray-700">
+                                            <i class="fas fa-download"></i>
+                                        </button>
+                                        <button class="text-gray-500 hover:text-red-500">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Record Item 5 -->
+                            <div class="p-6 hover:bg-gray-50 transition cursor-pointer">
+                                <div class="flex flex-col md:flex-row md:items-center md:justify-between">
+                                    <div class="flex items-start space-x-4">
+                                        <div class="bg-red-100 text-red-600 p-3 rounded-lg">
+                                            <i class="fas fa-allergies text-xl"></i>
+                                        </div>
+                                        <div>
+                                            <h3 class="font-medium text-gray-900">Test allergologique</h3>
+                                            <p class="text-sm text-gray-500">Dr. Sophie Laurent - Allergologue</p>
+                                            <div class="mt-2 flex flex-wrap gap-2">
+                                                <span class="bg-red-100 text-red-800 text-xs px-2 py-1 rounded">Allergologie</span>
+                                                <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded">Test</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mt-4 md:mt-0 flex items-center space-x-4">
+                                        <span class="text-sm text-gray-500">10/05/2023</span>
+                                        <button class="text-blue-600 hover:text-blue-800">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="text-gray-500 hover:text-gray-700">
+                                            <i class="fas fa-download"></i>
+                                        </button>
+                                        <button class="text-gray-500 hover:text-red-500">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Health Summary -->
+                <div class="mt-8 bg-white rounded-lg shadow-md overflow-hidden">
+                    <div class="bg-blue-600 text-white px-6 py-4">
+                        <h2 class="text-xl font-semibold">
+                            <i class="fas fa-chart-line mr-2"></i>
+                            Mon résumé de santé
+                        </h2>
+                    </div>
+                    <div class="p-6 grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="bg-blue-50 p-4 rounded-lg">
+                            <div class="flex items-center justify-between">
+                                <h3 class="font-medium text-blue-800">Allergies</h3>
+                                <i class="fas fa-allergies text-blue-500"></i>
+                            </div>
+                            <ul class="mt-2 space-y-1">
+                                <li class="text-sm">Pénicilline</li>
+                                <li class="text-sm">Arachides</li>
+                                <li class="text-sm">Acariens</li>
+                            </ul>
+                        </div>
+                        <div class="bg-green-50 p-4 rounded-lg">
+                            <div class="flex items-center justify-between">
+                                <h3 class="font-medium text-green-800">Traitements</h3>
+                                <i class="fas fa-pills text-green-500"></i>
+                            </div>
+                            <ul class="mt-2 space-y-1">
+                                <li class="text-sm">Atorvastatine 20mg</li>
+                                <li class="text-sm">Métoprolol 50mg</li>
+                            </ul>
+                        </div>
+                        <div class="bg-purple-50 p-4 rounded-lg">
+                            <div class="flex items-center justify-between">
+                                <h3 class="font-medium text-purple-800">Antécédents</h3>
+                                <i class="fas fa-history text-purple-500"></i>
+                            </div>
+                            <ul class="mt-2 space-y-1">
+                                <li class="text-sm">Hypertension</li>
+                                <li class="text-sm">Chirurgie appendicite (2018)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Add Record Modal -->
+        <div id="addRecordModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+            <div class="bg-white rounded-lg shadow-xl w-full max-w-md fade-in">
+                <div class="bg-blue-600 text-white px-6 py-4 rounded-t-lg flex justify-between items-center">
+                    <h3 class="text-lg font-semibold">Ajouter un document</h3>
+                    <button id="closeModalBtn" class="text-white hover:text-gray-200">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="p-6">
+                    <form id="addRecordForm">
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2" for="recordType">Type de document</label>
+                            <select id="recordType" class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-300">
+                                <option value="">Sélectionner un type</option>
+                                <option value="consultation">Consultation</option>
+                                <option value="analysis">Analyse médicale</option>
+                                <option value="imaging">Imagerie</option>
+                                <option value="hospitalization">Hospitalisation</option>
+                                <option value="prescription">Ordonnance</option>
+                                <option value="other">Autre</option>
+                            </select>
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2" for="recordTitle">Titre</label>
+                            <input type="text" id="recordTitle" class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-300" placeholder="Ex: Consultation cardiologie">
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2" for="recordDate">Date</label>
+                            <input type="date" id="recordDate" class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-300">
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2" for="recordFile">Fichier</label>
+                            <div class="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center">
+                                <i class="fas fa-cloud-upload-alt text-3xl text-gray-400 mb-2"></i>
+                                <p class="text-gray-500 mb-2">Glissez-déposez votre fichier ici</p>
+                                <p class="text-gray-400 text-sm mb-3">ou</p>
+                                <label for="fileInput" class="bg-blue-600 text-white px-4 py-2 rounded-lg cursor-pointer hover:bg-blue-700 transition">
+                                    Sélectionner un fichier
+                                </label>
+                                <input type="file" id="fileInput" class="hidden">
+                            </div>
+                        </div>
+                        <div class="flex justify-end space-x-3 mt-6">
+                            <button type="button" id="cancelAddBtn" class="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-100 transition">
+                                Annuler
+                            </button>
+                            <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">
+                                Enregistrer
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Modal functionality
+        const addRecordBtn = document.getElementById('addRecordBtn');
+        const addRecordModal = document.getElementById('addRecordModal');
+        const closeModalBtn = document.getElementById('closeModalBtn');
+        const cancelAddBtn = document.getElementById('cancelAddBtn');
+        const addRecordForm = document.getElementById('addRecordForm');
+
+        addRecordBtn.addEventListener('click', () => {
+            addRecordModal.classList.remove('hidden');
+        });
+
+        closeModalBtn.addEventListener('click', () => {
+            addRecordModal.classList.add('hidden');
+        });
+
+        cancelAddBtn.addEventListener('click', () => {
+            addRecordModal.classList.add('hidden');
+        });
+
+        addRecordForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            // Here you would handle the form submission
+            alert('Document ajouté avec succès!');
+            addRecordModal.classList.add('hidden');
+            addRecordForm.reset();
+        });
+
+        // Close modal when clicking outside
+        window.addEventListener('click', (e) => {
+            if (e.target === addRecordModal) {
+                addRecordModal.classList.add('hidden');
+            }
+        });
+
+        // File input display
+        const fileInput = document.getElementById('fileInput');
+        const fileUploadArea = fileInput.previousElementSibling.previousElementSibling;
+
+        fileInput.addEventListener('change', () => {
+            if (fileInput.files.length > 0) {
+                fileUploadArea.textContent = fileInput.files[0].name;
+                fileUploadArea.classList.add('text-blue-600');
+                fileUploadArea.classList.remove('text-gray-500');
+            }
+        });
+
+        // Make record items clickable
+        document.querySelectorAll('.hover\\:bg-gray-50').forEach(item => {
+            item.addEventListener('click', () => {
+                // Here you would open the document viewer
+                alert('Ouverture du document...');
+            });
+        });
+    </script>
+
+<div id="navbar-mobile-placeholder"></div>
+<div id="navbar-mobile-placeholder"></div>
+<script>
+    fetch('navbar_mobile.html')
+        .then(res => res.text())
+        .then(html => {
+            document.getElementById('navbar-mobile-placeholder').innerHTML = html;
+
+            // Si on veut afficher tous les éléments, on n'applique aucun filtrage :
+            // const showIcons = [...]; → supprimé ou ignoré
+
+            /*
+            // Ce bloc n'est plus nécessaire si on veut tout afficher :
+            const allIcons = [
+                'nav-accueil',
+                'nav-consultation',
+                'nav-dossiers',
+                'nav-services',
+                'nav-medecin',
+                'nav-pharmacie',
+                'nav-notation',
+                'nav-notification'
+            ];
+            allIcons.forEach(id => {
+                if (!showIcons.includes(id)) {
+                    const el = document.getElementById(id);
+                    if (el) el.style.display = 'none';
+                }
+            });
+            */
+        });
+</script>
+
+</body>
+</html>

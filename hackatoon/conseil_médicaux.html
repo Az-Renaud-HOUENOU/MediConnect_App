@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediConnect - Conseils Médicaux & Livraison de Médicaments</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+        }
+        .pulse-animation {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .transition-all {
+            transition: all 0.3s ease;
+        }
+        body {
+    padding-bottom: 60px; /* Ajuste selon la hauteur de ta nav */
+  }
+    </style>
+</head>
+<body class="font-sans bg-gray-50">
+    <!-- Header -->
+    <header class="gradient-bg text-white shadow-lg">
+        <div class="container mx-auto px-4 py-6">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-2">
+                    <i class="fas fa-heartbeat text-3xl"></i>
+                    <h1 class="text-2xl font-bold">MediConnect</h1>
+                </div>
+                <nav class="hidden md:flex space-x-8">
+                    <a href="index.html" class="nav-link text-gray-600 hover:text-blue-500 font-medium">Accueil</a>
+                    <a href="consultation_en_ligne.html" class="nav-link text-gray-600 hover:text-blue-500 font-medium">Consultation</a>
+                    <a href="dossier_medical_du_patient.html" class="nav-link text-gray-600 hover:text-blue-500 font-medium">Dossiers</a>
+                    <a href="conseil_médicaux.html" class="nav-link text-gray-600 hover:text-blue-500 font-medium">Services</a>
+                    <a href="liste_médécin.html" class="nav-link text-gray-600 hover:text-blue-500 font-medium">Médécin</a>
+                    <a href="liste_phamarcie.html" class="nav-link text-gray-600 hover:text-blue-500 font-medium">Phamarcie</a>
+                    <a href="notation_des_médécins.html" class="nav-link text-gray-600 hover:text-blue-500 font-medium">Notation</a>
+                    <a href="système_de_rapport_médicaux.html" class="nav-link text-gray-600 hover:text-blue-500 font-medium">Notification</a>
+                </nav>
+                <button class="md:hidden text-2xl">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    
+
+    <!-- Medical Advice Section -->
+    <section class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col lg:flex-row items-center">
+                <div class="lg:w-1/2 mb-10 lg:mb-0 lg:pr-10">
+                    <h2 class="text-3xl font-bold mb-6 text-gray-800">Conseils Médicaux Personnalisés</h2>
+                    <p class="text-gray-600 mb-6">Nos médecins vous offrent des conseils adaptés à votre situation personnelle, basés sur votre historique médical et vos besoins spécifiques.</p>
+                    
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <div class="bg-blue-100 p-2 rounded-full mr-4">
+                                <i class="fas fa-check text-blue-600"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-800">Analyse complète</h4>
+                                <p class="text-gray-600">Évaluation approfondie de vos symptômes et antécédents.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="bg-blue-100 p-2 rounded-full mr-4">
+                                <i class="fas fa-check text-blue-600"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-800">Recommandations ciblées</h4>
+                                <p class="text-gray-600">Conseils adaptés à votre mode de vie et préférences.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="bg-blue-100 p-2 rounded-full mr-4">
+                                <i class="fas fa-check text-blue-600"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-800">Suivi continu</h4>
+                                <p class="text-gray-600">Adaptation des conseils en fonction de l'évolution de votre état.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button class="mt-8 bg-blue-600 text-white font-bold py-3 px-6 rounded-full hover:bg-blue-700 transition-all">
+                        <i class="fas fa-calendar-check mr-2"></i> Prendre rendez-vous
+                    </button>
+                </div>
+                
+                <div class="lg:w-1/2">
+                    <div class="bg-white p-6 rounded-xl shadow-lg">
+                        <h3 class="text-xl font-semibold mb-4 text-gray-800">Simulateur de conseils</h3>
+                        
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-gray-700 mb-2">Quel est votre principal symptôme?</label>
+                                <select class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    <option>Sélectionnez un symptôme</option>
+                                    <option>Fièvre</option>
+                                    <option>Douleurs musculaires</option>
+                                    <option>Maux de tête</option>
+                                    <option>Problèmes digestifs</option>
+                                    <option>Autre</option>
+                                </select>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-gray-700 mb-2">Depuis combien de temps?</label>
+                                <select class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    <option>Sélectionnez une durée</option>
+                                    <option>Moins de 24h</option>
+                                    <option>1-3 jours</option>
+                                    <option>3-7 jours</option>
+                                    <option>Plus d'une semaine</option>
+                                </select>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-gray-700 mb-2">Décrivez brièvement votre situation</label>
+                                <textarea class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" rows="3"></textarea>
+                            </div>
+                            
+                            <button class="w-full bg-blue-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-blue-700 transition-all">
+                                Obtenir des conseils <i class="fas fa-arrow-right ml-2"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Medication Delivery Section -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">Livraison de Médicaments</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">Commandez vos médicaments en ligne et recevez-les rapidement à votre domicile.</p>
+            </div>
+            
+            <div class="flex flex-col lg:flex-row">
+                <div class="lg:w-1/2 lg:pr-10 mb-10 lg:mb-0">
+                    <div class="bg-blue-50 rounded-xl p-8">
+                        <h3 class="text-2xl font-semibold mb-4 text-gray-800">Comment ça marche?</h3>
+                        
+                        <div class="space-y-6">
+                            <div class="flex items-start">
+                                <div class="bg-blue-600 text-white font-bold rounded-full w-8 h-8 flex items-center justify-center mr-4 mt-1">1</div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-800">Recherchez vos médicaments</h4>
+                                    <p class="text-gray-600">Trouvez vos médicaments dans notre catalogue complet ou téléchargez votre ordonnance.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="bg-blue-600 text-white font-bold rounded-full w-8 h-8 flex items-center justify-center mr-4 mt-1">2</div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-800">Validez votre commande</h4>
+                                    <p class="text-gray-600">Nos pharmaciens vérifient votre ordonnance et valident votre commande.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="bg-blue-600 text-white font-bold rounded-full w-8 h-8 flex items-center justify-center mr-4 mt-1">3</div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-800">Livraison express</h4>
+                                    <p class="text-gray-600">Recevez vos médicaments à l'adresse de votre choix en moins de 2 heures.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <button class="mt-8 bg-blue-600 text-white font-bold py-3 px-6 rounded-full hover:bg-blue-700 transition-all">
+                            <i class="fas fa-search mr-2"></i> Rechercher des médicaments
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="lg:w-1/2">
+                    <div class="border-2 border-dashed border-gray-300 rounded-xl p-8 h-full flex flex-col justify-center">
+                        <h3 class="text-2xl font-semibold mb-6 text-gray-800">Téléchargez votre ordonnance</h3>
+                        
+                        <div class="border-2 border-gray-300 border-dashed rounded-xl p-8 text-center mb-6">
+                            <i class="fas fa-cloud-upload-alt text-4xl text-gray-400 mb-4"></i>
+                            <p class="text-gray-500 mb-2">Glissez-déposez votre ordonnance ici</p>
+                            <p class="text-sm text-gray-400">ou</p>
+                            <button class="mt-4 bg-gray-100 text-gray-700 font-medium py-2 px-4 rounded-lg hover:bg-gray-200 transition-all">
+                                Parcourir les fichiers
+                            </button>
+                        </div>
+                        
+                        <div class="flex items-center justify-between bg-green-50 p-4 rounded-lg mb-6">
+                            <div class="flex items-center">
+                                <i class="fas fa-file-prescription text-green-600 text-2xl mr-3"></i>
+                                <div>
+                                    <p class="font-medium text-gray-800">Ordonnance.pdf</p>
+                                    <p class="text-sm text-gray-500">1.2 MB</p>
+                                </div>
+                            </div>
+                            <button class="text-red-500 hover:text-red-700">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                        
+                        <button class="w-full bg-green-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-green-700 transition-all">
+                            <i class="fas fa-paper-plane mr-2"></i> Envoyer l'ordonnance
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- CTA Section -->
+    <section class="gradient-bg text-white py-16">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-6">Prêt à prendre soin de votre santé?</h2>
+            <p class="text-xl mb-8 max-w-2xl mx-auto">Inscrivez-vous dès maintenant pour bénéficier de nos services de conseils médicaux et de livraison de médicaments.</p>
+            <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+                <button class="bg-white text-blue-600 font-bold py-3 px-8 rounded-full hover:bg-blue-50 transition-all">
+                    <i class="fas fa-user-plus mr-2"></i> Créer un compte
+                </button>
+                <button class="border-2 border-white text-white font-bold py-3 px-8 rounded-full hover:bg-white hover:text-blue-600 transition-all">
+                    <i class="fas fa-phone-alt mr-2"></i> Nous appeler
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="hidden md:block bg-gray-900 text-white pt-16 pb-8">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-4">
+                        <div class="w-10 h-10 rounded-full gradient-bg flex items-center justify-center">
+                            <i class="fas fa-heartbeat text-white text-xl"></i>
+                        </div>
+                        <span class="text-xl font-bold">MediConnect</span>
+                    </div>
+                    <p class="text-gray-400 mb-4">La télémédecine accessible à tous au Bénin.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Services</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">Consultation vidéo</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Consultation par chat</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Consultation téléphonique</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Dossiers médicaux</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Livraison de médicaments</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Entreprise</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">À propos</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Carrières</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Partenaires</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Presse</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Blog</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Contact</h3>
+                    <ul class="space-y-2">
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt text-gray-400 mr-2 mt-1"></i>
+                            <span class="text-gray-400">Rue 256, Cotonou, Bénin</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-phone-alt text-gray-400 mr-2"></i>
+                            <span class="text-gray-400">+229 60 12 34 56</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-envelope text-gray-400 mr-2"></i>
+                            <span class="text-gray-400">contact@mediconnect.bj</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-headset text-gray-400 mr-2"></i>
+                            <span class="text-gray-400">Support 24/7</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400 mb-4 md:mb-0">© 2025 MediConnect. Tous droits réservés.</p>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-400 hover:text-white">Conditions d'utilisation</a>
+                    <a href="#" class="text-gray-400 hover:text-white">Politique de confidentialité</a>
+                    <a href="#" class="text-gray-400 hover:text-white">Mentions légales</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    <script>
+        // Simple script for demonstration purposes
+        document.addEventListener('DOMContentLoaded', function() {
+            // Simulate form submission
+            const adviceForm = document.querySelector('.bg-white.p-6.rounded-xl.shadow-lg button');
+            if (adviceForm) {
+                adviceForm.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    alert('Votre demande de conseils a été envoyée. Un médecin vous contactera sous peu.');
+                });
+            }
+            
+            // Simulate prescription submission
+            const prescriptionForm = document.querySelector('.border-2.border-dashed.border-gray-300 button.bg-green-600');
+            if (prescriptionForm) {
+                prescriptionForm.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    alert('Votre ordonnance a été envoyée à notre pharmacie. Vous recevrez un SMS pour confirmer votre commande.');
+                });
+            }
+        });
+    </script>
+
+<div id="navbar-mobile-placeholder"></div>
+<div id="navbar-mobile-placeholder"></div>
+<script>
+    fetch('navbar_mobile.html')
+        .then(res => res.text())
+        .then(html => {
+            document.getElementById('navbar-mobile-placeholder').innerHTML = html;
+
+            // Si on veut afficher tous les éléments, on n'applique aucun filtrage :
+            // const showIcons = [...]; → supprimé ou ignoré
+
+            /*
+            // Ce bloc n'est plus nécessaire si on veut tout afficher :
+            const allIcons = [
+                'nav-accueil',
+                'nav-consultation',
+                'nav-dossiers',
+                'nav-services',
+                'nav-medecin',
+                'nav-pharmacie',
+                'nav-notation',
+                'nav-notification'
+            ];
+            allIcons.forEach(id => {
+                if (!showIcons.includes(id)) {
+                    const el = document.getElementById(id);
+                    if (el) el.style.display = 'none';
+                }
+            });
+            */
+        });
+</script>
+
+</body>
+</html>

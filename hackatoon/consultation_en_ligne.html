@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediConnect - Consultation Médicale en Ligne</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+        }
+        .consultation-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 0.5rem;
+        }
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .chat-bubble {
+            max-width: 70%;
+            border-radius: 1rem;
+        }
+        .patient-bubble {
+            background-color: #e2e8f0;
+            border-bottom-right-radius: 0;
+        }
+        .doctor-bubble {
+            background-color: #3b82f6;
+            color: white;
+            border-bottom-left-radius: 0;
+        }
+        .payment-method:hover {
+            border-color: #3b82f6;
+        }
+        body {
+    padding-bottom: 60px; /* Ajuste selon la hauteur de ta nav */
+  }
+    </style>
+</head>
+<body class="font-sans bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 flex items-center">
+                        <i class="fas fa-heartbeat text-blue-500 text-2xl mr-2"></i>
+                        <span class="text-xl font-bold text-blue-600">MediConnect</span>
+                    </div>
+                </div>
+                <div class="hidden md:ml-6 md:flex md:items-center md:space-x-8">
+                    <a href="index.html" class="text-blue-600 border-blue-500 px-3 py-2 text-sm font-medium border-b-2">Accueil</a>
+                    <a href="consultation_en_ligne.html" class="text-gray-600 hover:text-blue-500 hover:border-blue-500 px-3 py-2 text-sm font-medium border-b-2 border-transparent">Consultation</a>
+                    <a href="dossier_medical_du_patient.html" class="text-gray-600 hover:text-blue-500 hover:border-blue-500 px-3 py-2 text-sm font-medium border-b-2 border-transparent">Dossiers</a>
+                    <a href="conseil_médicaux.html" class="text-gray-600 hover:text-blue-500 hover:border-blue-500 px-3 py-2 text-sm font-medium border-b-2 border-transparent">Services</a>
+                    <a href="liste_médécin.html" class="text-gray-600 hover:text-blue-500 hover:border-blue-500 px-3 py-2 text-sm font-medium border-b-2 border-transparent">Médecin</a>
+                    <a href="liste_phamarcie.html" class="text-gray-600 hover:text-blue-500 hover:border-blue-500 px-3 py-2 text-sm font-medium border-b-2 border-transparent">Pharmacie</a>
+                    <a href="notation_des_médécins.html" class="text-gray-600 hover:text-blue-500 hover:border-blue-500 px-3 py-2 text-sm font-medium border-b-2 border-transparent">Notation</a>
+                    <a href="système_de_rapport_médicaux.html" class="text-gray-600 hover:text-blue-500 hover:border-blue-500 px-3 py-2 text-sm font-medium border-b-2 border-transparent">Notification</a>
+
+                </div>
+                <div class="flex items-center">
+                    <button class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium">
+                        <i class="fas fa-user-md mr-2"></i>Espace Médecin
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="gradient-bg text-white">
+        <div class="max-w-7xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h1 class="text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl">
+                    Consultation médicale en ligne, simple et sécurisée
+                </h1>
+                <p class="mt-6 max-w-lg mx-auto text-xl">
+                    Consultez un médecin certifié depuis chez vous, 7j/7, par vidéo ou chat. Paiement sécurisé et remboursable par l'assurance.
+                </p>
+                
+            </div>
+        </div>
+    </div>
+
+    <!-- How It Works -->
+    <div class="bg-white py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-extrabold text-gray-900 text-center mb-12">
+                Comment ça marche ?
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="text-center p-6">
+                    <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-blue-100 text-blue-600 mb-4">
+                        <i class="fas fa-search text-xl"></i>
+                    </div>
+                    <h3 class="text-lg font-medium text-gray-900 mb-2">1. Trouvez votre médecin</h3>
+                    <p class="text-gray-500">
+                        Recherchez par spécialité, disponibilité ou langue parlée. Consultez les profils et avis.
+                    </p>
+                </div>
+                <div class="text-center p-6">
+                    <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-blue-100 text-blue-600 mb-4">
+                        <i class="fas fa-calendar-check text-xl"></i>
+                    </div>
+                    <h3 class="text-lg font-medium text-gray-900 mb-2">2. Prenez rendez-vous</h3>
+                    <p class="text-gray-500">
+                        Choisissez votre créneau horaire et payez en ligne de manière sécurisée.
+                    </p>
+                </div>
+                <div class="text-center p-6">
+                    <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-blue-100 text-blue-600 mb-4">
+                        <i class="fas fa-laptop-medical text-xl"></i>
+                    </div>
+                    <h3 class="text-lg font-medium text-gray-900 mb-2">3. Consultez en ligne</h3>
+                    <p class="text-gray-500">
+                        Connectez-vous par vidéo ou chat à l'heure du rendez-vous et recevez votre ordonnance.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Consultation Options -->
+    <div class="bg-gray-50 py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-extrabold text-gray-900 text-center mb-12">
+                Options de consultation
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Video Consultation Card -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden consultation-card transition duration-300">
+                    <div class="p-6">
+                        <div class="flex items-center mb-4">
+                            <div class="bg-blue-100 p-3 rounded-full mr-4">
+                                <i class="fas fa-video text-blue-600 text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-900">Consultation vidéo</h3>
+                        </div>
+                        <p class="text-gray-600 mb-6">
+                            Consultation en face à face avec votre médecin par appel vidéo sécurisé. Idéal pour les diagnostics nécessitant une observation visuelle.
+                        </p>
+                        <div class="video-container mb-6">
+                            <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <button class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-md text-sm font-medium">
+                                Réserver maintenant
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Chat Consultation Card -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden consultation-card transition duration-300">
+                    <div class="p-6">
+                        <div class="flex items-center mb-4">
+                            <div class="bg-blue-100 p-3 rounded-full mr-4">
+                                <i class="fas fa-comments text-blue-600 text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-900">Consultation par chat</h3>
+                        </div>
+                        <p class="text-gray-600 mb-6">
+                            Échangez en temps réel avec votre médecin par messagerie sécurisée. Parfait pour les conseils médicaux et renouvellements d'ordonnance.
+                        </p>
+                        
+                        <!-- Chat Preview -->
+                        <div class="bg-gray-100 rounded-lg p-4 mb-6 h-64 overflow-y-auto">
+                            <div class="flex mb-4 justify-end">
+                                <div class="chat-bubble patient-bubble p-3">
+                                    Bonjour docteur, j'ai des maux de tête depuis 3 jours...
+                                </div>
+                            </div>
+                            <div class="flex mb-4">
+                                <div class="chat-bubble doctor-bubble p-3">
+                                    Bonjour, depuis quand exactement et à quelle fréquence ?
+                                </div>
+                            </div>
+                            <div class="flex mb-4 justify-end">
+                                <div class="chat-bubble patient-bubble p-3">
+                                    Depuis mardi, environ 2 fois par jour
+                                </div>
+                            </div>
+                            <div class="flex">
+                                <div class="chat-bubble doctor-bubble p-3">
+                                    Je vous prescris un traitement, vérifiez votre messagerie.
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex justify-between items-center">
+                            <button class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-md text-sm font-medium">
+                                Commencer le chat
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+
+    <!-- Secure Payment -->
+    <div class="bg-gray-50 py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-extrabold text-gray-900 text-center mb-12">
+                Paiement sécurisé
+            </h2>
+            <div class="bg-white rounded-lg shadow-md p-8 max-w-3xl mx-auto">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+                    <div class="payment-method border rounded-lg p-4 flex items-center justify-center cursor-pointer">
+                        <i class="fab fa-cc-visa text-4xl text-blue-800"></i>
+                    </div>
+                    <div class="payment-method border rounded-lg p-4 flex items-center justify-center cursor-pointer">
+                        <i class="fab fa-cc-mastercard text-4xl text-red-700"></i>
+                    </div>
+                    <div class="payment-method border rounded-lg p-4 flex items-center justify-center cursor-pointer">
+                        <i class="fab fa-cc-paypal text-4xl text-blue-500"></i>
+                    </div>
+                    <div class="payment-method border rounded-lg p-4 flex items-center justify-center cursor-pointer">
+                        <i class="fas fa-university text-4xl text-gray-700"></i>
+                    </div>
+                </div>
+                
+                <div class="space-y-6">
+                    <div>
+                        <label for="card-number" class="block text-sm font-medium text-gray-700 mb-1">Numéro de carte</label>
+                        <div class="relative">
+                            <input type="text" id="card-number" name="card-number" class="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500" placeholder="1234 5678 9012 3456">
+                            <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                                <i class="far fa-credit-card text-gray-400"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 gap-6">
+                        <div>
+                            <label for="expiry-date" class="block text-sm font-medium text-gray-700 mb-1">Date d'expiration</label>
+                            <input type="text" id="expiry-date" name="expiry-date" class="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500" placeholder="MM/AA">
+                        </div>
+                        <div>
+                            <label for="cvv" class="block text-sm font-medium text-gray-700 mb-1">CVV</label>
+                            <div class="relative">
+                                <input type="text" id="cvv" name="cvv" class="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500" placeholder="123">
+                                <div class="absolute inset-y-0 right-0 flex items-center pr-3">
+                                    <i class="fas fa-question-circle text-gray-400 hover:text-gray-600 cursor-pointer" title="3 chiffres au dos de votre carte"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="pt-4">
+                        <button class="w-full gradient-bg hover:bg-blue-700 text-white px-6 py-3 rounded-md font-medium text-lg">
+                            <i class="fas fa-lock mr-2"></i>Payer maintenant
+                        </button>
+                    </div>
+                    
+                    <div class="flex items-center justify-center mt-4">
+                        <i class="fas fa-shield-alt text-green-500 mr-2"></i>
+                        <span class="text-sm text-gray-500">Paiement 100% sécurisé - Cryptage SSL</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- CTA Section -->
+    <div class="gradient-bg text-white py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl font-extrabold mb-6">
+                Prêt à consulter un médecin en ligne ?
+            </h2>
+            <p class="text-xl mb-8 max-w-3xl mx-auto">
+                Plus de 500 médecins généralistes et spécialistes disponibles 7j/7 de 6h à 23h.
+            </p>
+            <button class="bg-white text-blue-600 px-8 py-3 rounded-md text-lg font-semibold hover:bg-gray-100">
+                <i class="fas fa-user-plus mr-2"></i>Créer un compte
+            </button>
+        </div>
+    </div>
+
+     <!-- Footer -->
+     <footer class="hidden md:block bg-gray-900 text-white pt-16 pb-8">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-4">
+                        <div class="w-10 h-10 rounded-full gradient-bg flex items-center justify-center">
+                            <i class="fas fa-heartbeat text-white text-xl"></i>
+                        </div>
+                        <span class="text-xl font-bold">MediConnect</span>
+                    </div>
+                    <p class="text-gray-400 mb-4">La télémédecine accessible à tous au Bénin.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Services</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">Consultation vidéo</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Consultation par chat</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Consultation téléphonique</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Dossiers médicaux</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Livraison de médicaments</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Entreprise</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">À propos</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Carrières</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Partenaires</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Presse</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Blog</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Contact</h3>
+                    <ul class="space-y-2">
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt text-gray-400 mr-2 mt-1"></i>
+                            <span class="text-gray-400">Rue 256, Cotonou, Bénin</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-phone-alt text-gray-400 mr-2"></i>
+                            <span class="text-gray-400">+229 60 12 34 56</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-envelope text-gray-400 mr-2"></i>
+                            <span class="text-gray-400">contact@mediconnect.bj</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-headset text-gray-400 mr-2"></i>
+                            <span class="text-gray-400">Support 24/7</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400 mb-4 md:mb-0">© 2025 MediConnect. Tous droits réservés.</p>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-400 hover:text-white">Conditions d'utilisation</a>
+                    <a href="#" class="text-gray-400 hover:text-white">Politique de confidentialité</a>
+                    <a href="#" class="text-gray-400 hover:text-white">Mentions légales</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    
+
+    <script>
+        // Toggle chat widget
+        const chatButton = document.getElementById('chat-widget-button');
+        const chatWidget = document.getElementById('chat-widget');
+        const closeChat = document.getElementById('close-chat');
+        
+        chatButton.addEventListener('click', () => {
+            chatWidget.classList.toggle('hidden');
+        });
+        
+        closeChat.addEventListener('click', () => {
+            chatWidget.classList.add('hidden');
+        });
+        
+        // Simulate payment method selection
+        const paymentMethods = document.querySelectorAll('.payment-method');
+        paymentMethods.forEach(method => {
+            method.addEventListener('click', () => {
+                paymentMethods.forEach(m => m.classList.remove('border-blue-500', 'bg-blue-50'));
+                method.classList.add('border-blue-500', 'bg-blue-50');
+            });
+        });
+    </script>
+
+    <!-- À placer dans le <body> de chaque page HTML -->
+<div id="navbar-mobile-placeholder"></div>
+<div id="navbar-mobile-placeholder"></div>
+<script>
+    fetch('navbar_mobile.html')
+        .then(res => res.text())
+        .then(html => {
+            document.getElementById('navbar-mobile-placeholder').innerHTML = html;
+
+            // Si on veut afficher tous les éléments, on n'applique aucun filtrage :
+            // const showIcons = [...]; → supprimé ou ignoré
+
+            /*
+            // Ce bloc n'est plus nécessaire si on veut tout afficher :
+            const allIcons = [
+                'nav-accueil',
+                'nav-consultation',
+                'nav-dossiers',
+                'nav-services',
+                'nav-medecin',
+                'nav-pharmacie',
+                'nav-notation',
+                'nav-notification'
+            ];
+            allIcons.forEach(id => {
+                if (!showIcons.includes(id)) {
+                    const el = document.getElementById(id);
+                    if (el) el.style.display = 'none';
+                }
+            });
+            */
+        });
+</script>
+
+
+</body>
+</html>

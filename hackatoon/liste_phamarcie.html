@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediConnect - Plateforme de Télémédecine</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f7fafc;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #3498db, #2ecc71);
+        }
+        
+        .pharmacy-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .rating-stars {
+            color: #f1c40f;
+        }
+        
+        .consultation-btn {
+            transition: all 0.3s ease;
+        }
+        
+        .consultation-btn:hover {
+            transform: scale(1.05);
+        }
+
+        body {
+    padding-bottom: 60px; /* Ajuste selon la hauteur de ta nav */
+  }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="gradient-bg text-white">
+        <div class="container mx-auto px-4 py-6">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-2">
+                    <i class="fas fa-heartbeat text-3xl"></i>
+                    <h1 class="text-2xl font-bold">MediConnect</h1>
+                </div>
+                <nav class="hidden md:flex space-x-8">
+                    <a href="index.html" class="nav-link text-gray-600 hover:text-blue-500 font-medium">Accueil</a>
+                    <a href="consultation_en_ligne.html" class="nav-link text-gray-600 hover:text-blue-500 font-medium">Consultation</a>
+                    <a href="dossier_medical_du_patient.html" class="nav-link text-gray-600 hover:text-blue-500 font-medium">Dossiers</a>
+                    <a href="conseil_médicaux.html" class="nav-link text-gray-600 hover:text-blue-500 font-medium">Services</a>
+                    <a href="liste_médécin.html" class="nav-link text-gray-600 hover:text-blue-500 font-medium">Médécin</a>
+                    <a href="liste_phamarcie.html" class="nav-link text-gray-600 hover:text-blue-500 font-medium">Phamarcie</a>
+                    <a href="notation_des_médécins.html" class="nav-link text-gray-600 hover:text-blue-500 font-medium">Notation</a>
+                    <a href="système_de_rapport_médicaux.html" class="nav-link text-gray-600 hover:text-blue-500 font-medium">Notification</a>
+                </nav>
+                <div class="flex items-center space-x-4">
+                    <button onclick="window.location.href='login_register.html'" class="hidden md:block bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-full font-medium transition">
+                        Connexion
+                    </button>
+                    
+                    <a href="login_register.html" class="md:hidden text-2xl">
+                        <i class="fas fa-bars"></i>
+                    </a>
+                </div>
+                
+                
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="gradient-bg text-white py-16">
+        <div class="container mx-auto px-4 flex flex-col md:flex-row items-center">
+            <div class="md:w-1/2 mb-10 md:mb-0">
+                <h1 class="text-4xl md:text-5xl font-bold mb-6">Livraison de médicaments au Bénin</h1>
+                <p class="text-xl mb-8">Commandez vos médicaments en ligne et recevez-les à domicile grâce à notre réseau de pharmacies partenaires.</p>
+                
+        </div>
+    </section>
+
+    <!-- Delivery Process -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">Comment commander vos médicaments ?</h2>
+            <div class="grid md:grid-cols-4 gap-8">
+                <div class="text-center">
+                    <div class="bg-blue-100 w-20 h-20 mx-auto rounded-full flex items-center justify-center mb-4 text-blue-600 text-2xl font-bold">1</div>
+                    <h3 class="text-xl font-semibold mb-2 text-gray-800">Choisissez votre pharmacie</h3>
+                    <p class="text-gray-600">Sélectionnez une pharmacie proche de chez vous parmi nos partenaires.</p>
+                </div>
+                <div class="text-center">
+                    <div class="bg-green-100 w-20 h-20 mx-auto rounded-full flex items-center justify-center mb-4 text-green-600 text-2xl font-bold">2</div>
+                    <h3 class="text-xl font-semibold mb-2 text-gray-800">Ajoutez vos médicaments</h3>
+                    <p class="text-gray-600">Recherchez et ajoutez vos médicaments à votre panier.</p>
+                </div>
+                <div class="text-center">
+                    <div class="bg-purple-100 w-20 h-20 mx-auto rounded-full flex items-center justify-center mb-4 text-purple-600 text-2xl font-bold">3</div>
+                    <h3 class="text-xl font-semibold mb-2 text-gray-800">Validez votre commande</h3>
+                    <p class="text-gray-600">Passez commande et choisissez votre mode de paiement.</p>
+                </div>
+                <div class="text-center">
+                    <div class="bg-yellow-100 w-20 h-20 mx-auto rounded-full flex items-center justify-center mb-4 text-yellow-600 text-2xl font-bold">4</div>
+                    <h3 class="text-xl font-semibold mb-2 text-gray-800">Recevez à domicile</h3>
+                    <p class="text-gray-600">Vos médicaments vous sont livrés dans les délais convenus.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Pharmacies Section -->
+    <section class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-4 text-gray-800">Nos Pharmacies Partenaires avec Livraison</h2>
+            <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">Découvrez notre réseau de pharmacies agréées offrant un service de livraison à domicile partout au Bénin.</p>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Pharmacy 1 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden pharmacy-card transition duration-300 relative">
+                    <div class="delivery-badge">
+                        <i class="fas fa-truck mr-1"></i> Livraison
+                    </div>
+                    <div class="h-48 bg-blue-100 flex items-center justify-center">
+                        <i class="fas fa-clinic-medical text-5xl text-blue-600"></i>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-gray-800">Pharmacie La Cigogne</h3>
+                            <div class="flex items-center">
+                                <span class="rating-stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                </span>
+                                <span class="ml-1 text-gray-600">4.5</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-600 mb-4">
+                            <i class="fas fa-map-marker-alt text-blue-500 mr-2"></i>
+                            123 Rue des Martyrs, Cotonou
+                        </p>
+                        <p class="text-gray-600 mb-4">
+                            <i class="fas fa-phone-alt text-blue-500 mr-2"></i>
+                            +229 21 31 45 67
+                        </p>
+                        <div class="flex justify-between items-center">
+                            <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">Zone: Cotonou</span>
+                            <button class="text-blue-600 font-medium hover:text-blue-800">
+                                <i class="fas fa-shopping-cart mr-1"></i> Commander
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Pharmacy 2 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden pharmacy-card transition duration-300 relative">
+                    <div class="delivery-badge">
+                        <i class="fas fa-truck mr-1"></i> Livraison
+                    </div>
+                    <div class="h-48 bg-green-100 flex items-center justify-center">
+                        <i class="fas fa-clinic-medical text-5xl text-green-600"></i>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-gray-800">Pharmacie du Plateau</h3>
+                            <div class="flex items-center">
+                                <span class="rating-stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </span>
+                                <span class="ml-1 text-gray-600">4.0</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-600 mb-4">
+                            <i class="fas fa-map-marker-alt text-blue-500 mr-2"></i>
+                            Avenue Clozel, Porto-Novo
+                        </p>
+                        <p class="text-gray-600 mb-4">
+                            <i class="fas fa-phone-alt text-blue-500 mr-2"></i>
+                            +229 20 21 22 23
+                        </p>
+                        <div class="flex justify-between items-center">
+                            <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">Zone: Porto-Novo</span>
+                            <button class="text-blue-600 font-medium hover:text-blue-800">
+                                <i class="fas fa-shopping-cart mr-1"></i> Commander
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Pharmacy 3 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden pharmacy-card transition duration-300 relative">
+                    <div class="delivery-badge">
+                        <i class="fas fa-truck mr-1"></i> Livraison
+                    </div>
+                    <div class="h-48 bg-purple-100 flex items-center justify-center">
+                        <i class="fas fa-clinic-medical text-5xl text-purple-600"></i>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-gray-800">Pharmacie Saint Jean</h3>
+                            <div class="flex items-center">
+                                <span class="rating-stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </span>
+                                <span class="ml-1 text-gray-600">5.0</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-600 mb-4">
+                            <i class="fas fa-map-marker-alt text-blue-500 mr-2"></i>
+                            Quartier Dantokpa, Cotonou
+                        </p>
+                        <p class="text-gray-600 mb-4">
+                            <i class="fas fa-phone-alt text-blue-500 mr-2"></i>
+                            +229 95 45 35 25
+                        </p>
+                        <div class="flex justify-between items-center">
+                            <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">Zone: Cotonou</span>
+                            <button class="text-blue-600 font-medium hover:text-blue-800">
+                                <i class="fas fa-shopping-cart mr-1"></i> Commander
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Pharmacy 4 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden pharmacy-card transition duration-300 relative">
+                    <div class="delivery-badge">
+                        <i class="fas fa-truck mr-1"></i> Livraison
+                    </div>
+                    <div class="h-48 bg-yellow-100 flex items-center justify-center">
+                        <i class="fas fa-clinic-medical text-5xl text-yellow-600"></i>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-gray-800">Pharmacie de l'Espoir</h3>
+                            <div class="flex items-center">
+                                <span class="rating-stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                </span>
+                                <span class="ml-1 text-gray-600">4.5</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-600 mb-4">
+                            <i class="fas fa-map-marker-alt text-blue-500 mr-2"></i>
+                            Boulevard de la Marina, Parakou
+                        </p>
+                        <p class="text-gray-600 mb-4">
+                            <i class="fas fa-phone-alt text-blue-500 mr-2"></i>
+                            +229 97 87 77 67
+                        </p>
+                        <div class="flex justify-between items-center">
+                            <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">Zone: Parakou</span>
+                            <button class="text-blue-600 font-medium hover:text-blue-800">
+                                <i class="fas fa-shopping-cart mr-1"></i> Commander
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Pharmacy 5 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden pharmacy-card transition duration-300 relative">
+                    <div class="delivery-badge">
+                        <i class="fas fa-truck mr-1"></i> Livraison
+                    </div>
+                    <div class="h-48 bg-red-100 flex items-center justify-center">
+                        <i class="fas fa-clinic-medical text-5xl text-red-600"></i>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-gray-800">Pharmacie Centrale</h3>
+                            <div class="flex items-center">
+                                <span class="rating-stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </span>
+                                <span class="ml-1 text-gray-600">4.0</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-600 mb-4">
+                            <i class="fas fa-map-marker-alt text-blue-500 mr-2"></i>
+                            Avenue Steinmetz, Abomey-Calavi
+                        </p>
+                        <p class="text-gray-600 mb-4">
+                            <i class="fas fa-phone-alt text-blue-500 mr-2"></i>
+                            +229 21 01 02 03
+                        </p>
+                        <div class="flex justify-between items-center">
+                            <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">Zone: Abomey-Calavi</span>
+                            <button class="text-blue-600 font-medium hover:text-blue-800">
+                                <i class="fas fa-shopping-cart mr-1"></i> Commander
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Pharmacy 6 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden pharmacy-card transition duration-300 relative">
+                    <div class="delivery-badge">
+                        <i class="fas fa-truck mr-1"></i> Livraison
+                    </div>
+                    <div class="h-48 bg-indigo-100 flex items-center justify-center">
+                        <i class="fas fa-clinic-medical text-5xl text-indigo-600"></i>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-gray-800">Pharmacie La Miséricorde</h3>
+                            <div class="flex items-center">
+                                <span class="rating-stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </span>
+                                <span class="ml-1 text-gray-600">5.0</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-600 mb-4">
+                            <i class="fas fa-map-marker-alt text-blue-500 mr-2"></i>
+                            Quartier Gbégamey, Cotonou
+                        </p>
+                        <p class="text-gray-600 mb-4">
+                            <i class="fas fa-phone-alt text-blue-500 mr-2"></i>
+                            +229 66 55 44 33
+                        </p>
+                        <div class="flex justify-between items-center">
+                            <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">Zone: Cotonou</span>
+                            <button class="text-blue-600 font-medium hover:text-blue-800">
+                                <i class="fas fa-shopping-cart mr-1"></i> Commander
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <button class="bg-blue-600 text-white px-6 py-3 rounded-full font-bold hover:bg-blue-700 transition">
+                    <i class="fas fa-map-marked-alt mr-2"></i> Voir toutes les pharmacies
+                </button>
+            </div>
+        </div>
+    </section>
+
+    
+
+    
+
+    <!-- Footer -->
+    <footer class="hidden md:block bg-gray-900 text-white pt-16 pb-8">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-4">
+                        <div class="w-10 h-10 rounded-full gradient-bg flex items-center justify-center">
+                            <i class="fas fa-heartbeat text-white text-xl"></i>
+                        </div>
+                        <span class="text-xl font-bold">MediConnect</span>
+                    </div>
+                    <p class="text-gray-400 mb-4">La télémédecine accessible à tous au Bénin.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Services</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">Consultation vidéo</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Consultation par chat</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Consultation téléphonique</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Dossiers médicaux</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Livraison de médicaments</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Entreprise</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">À propos</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Carrières</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Partenaires</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Presse</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Blog</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Contact</h3>
+                    <ul class="space-y-2">
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt text-gray-400 mr-2 mt-1"></i>
+                            <span class="text-gray-400">Rue 256, Cotonou, Bénin</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-phone-alt text-gray-400 mr-2"></i>
+                            <span class="text-gray-400">+229 60 12 34 56</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-envelope text-gray-400 mr-2"></i>
+                            <span class="text-gray-400">contact@mediconnect.bj</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-headset text-gray-400 mr-2"></i>
+                            <span class="text-gray-400">Support 24/7</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400 mb-4 md:mb-0">© 2025 MediConnect. Tous droits réservés.</p>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-400 hover:text-white">Conditions d'utilisation</a>
+                    <a href="#" class="text-gray-400 hover:text-white">Politique de confidentialité</a>
+                    <a href="#" class="text-gray-400 hover:text-white">Mentions légales</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simple script for mobile menu toggle (could be expanded)
+        document.querySelector('.md\\:hidden').addEventListener('click', function() {
+            // This would toggle a mobile menu in a real implementation
+            alert('Menu mobile serait affiché ici dans une implémentation complète');
+        });
+        
+        // Animation for pharmacy cards on scroll
+        document.addEventListener('DOMContentLoaded', function() {
+            const pharmacyCards = document.querySelectorAll('.pharmacy-card');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            pharmacyCards.forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'all 0.5s ease';
+                observer.observe(card);
+            });
+        });
+    </script>
+
+<div id="navbar-mobile-placeholder"></div>
+<div id="navbar-mobile-placeholder"></div>
+<script>
+    fetch('navbar_mobile.html')
+        .then(res => res.text())
+        .then(html => {
+            document.getElementById('navbar-mobile-placeholder').innerHTML = html;
+
+            // Si on veut afficher tous les éléments, on n'applique aucun filtrage :
+            // const showIcons = [...]; → supprimé ou ignoré
+
+            /*
+            // Ce bloc n'est plus nécessaire si on veut tout afficher :
+            const allIcons = [
+                'nav-accueil',
+                'nav-consultation',
+                'nav-dossiers',
+                'nav-services',
+                'nav-medecin',
+                'nav-pharmacie',
+                'nav-notation',
+                'nav-notification'
+            ];
+            allIcons.forEach(id => {
+                if (!showIcons.includes(id)) {
+                    const el = document.getElementById(id);
+                    if (el) el.style.display = 'none';
+                }
+            });
+            */
+        });
+</script>
+
+
+</body>
+</html>

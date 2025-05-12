@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediConnect - Trouvez votre médecin en ligne</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f7fafc;
+        }
+        
+        .doctor-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .specialty-badge {
+            transition: all 0.3s ease;
+        }
+        
+        .specialty-badge:hover {
+            background-color: #3b82f6;
+            color: white;
+        }
+        
+        .rating-stars {
+            color: #f59e0b;
+        }
+        
+        .availability-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 5px;
+        }
+        
+        .available {
+            background-color: #10b981;
+        }
+        
+        .busy {
+            background-color: #ef4444;
+        }
+        
+        .away {
+            background-color: #f59e0b;
+        }
+
+        body {
+    padding-bottom: 60px; /* Ajuste selon la hauteur de ta nav */
+  }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="bg-white shadow-sm">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center">
+                <div class="bg-blue-600 text-white p-2 rounded-lg mr-3">
+                    <i class="fas fa-heartbeat text-2xl"></i>
+                </div>
+                <h1 class="text-2xl font-bold text-blue-800">MediConnect</h1>
+            </div>
+            <nav class="hidden md:flex space-x-8">
+                <a href="index.html" class="nav-link text-gray-600 hover:text-blue-500 font-medium">Accueil</a>
+                <a href="consultation_en_ligne.html" class="nav-link text-gray-600 hover:text-blue-500 font-medium">Consultation</a>
+                <a href="dossier_medical_du_patient.html" class="nav-link text-gray-600 hover:text-blue-500 font-medium">Dossiers</a>
+                <a href="conseil_médicaux.html" class="nav-link text-gray-600 hover:text-blue-500 font-medium">Services</a>
+                <a href="liste_médécin.html" class="nav-link text-gray-600 hover:text-blue-500 font-medium">Médécin</a>
+                <a href="liste_phamarcie.html" class="nav-link text-gray-600 hover:text-blue-500 font-medium">Phamarcie</a>
+                <a href="notation_des_médécins.html" class="nav-link text-gray-600 hover:text-blue-500 font-medium">Notation</a>
+                <a href="système_de_rapport_médicaux.html" class="nav-link text-gray-600 hover:text-blue-500 font-medium">Notification</a>
+            </nav>
+            <div class="flex items-center space-x-4">
+                <button class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium">
+                    <i class="fas fa-user-md mr-2"></i>Espace Médecin
+                </button>
+                <button onclick="window.location.href='login_register.html'" class="hidden md:block bg-white border border-blue-600 text-blue-600 hover:bg-blue-50 px-4 py-2 rounded-lg font-medium">
+                    <i class="fas fa-user mr-2"></i>Connexion
+                </button>
+                
+                <button class="md:hidden text-gray-600">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-r from-blue-50 to-indigo-50 py-12">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-8 md:mb-0">
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Trouvez le médecin qu'il vous faut en quelques clics</h2>
+                    <p class="text-gray-600 mb-6">Consultation en ligne, accès à vos dossiers médicaux et rappels de traitement, tout cela depuis votre smartphone.</p>
+                    <div class="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4">
+                        <div class="relative flex-grow">
+                            <input type="text" placeholder="Rechercher un médecin, une spécialité..." class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <button class="absolute right-2 top-2 text-gray-400 hover:text-blue-600">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                        <button class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium whitespace-nowrap">
+                            <i class="fas fa-search mr-2"></i>Rechercher
+                        </button>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+
+    <!-- Filters -->
+    <section class="bg-white py-6 shadow-sm">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <h3 class="text-lg font-semibold text-gray-700 mb-4 md:mb-0">Filtrer les médecins :</h3>
+                <div class="flex flex-wrap gap-3">
+                    <select class="bg-white border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <option>Toutes spécialités</option>
+                        <option>Médecine générale</option>
+                        <option>Pédiatrie</option>
+                        <option>Cardiologie</option>
+                        <option>Dermatologie</option>
+                        <option>Gynécologie</option>
+                    </select>
+                    <select class="bg-white border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <option>Toutes villes</option>
+                        <option>Cotonou</option>
+                        <option>Porto-Novo</option>
+                        <option>Parakou</option>
+                        <option>Abomey-Calavi</option>
+                        <option>Natitingou</option>
+                    </select>
+                    <select class="bg-white border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <option>Disponibilité</option>
+                        <option>En ligne maintenant</option>
+                        <option>Disponible aujourd'hui</option>
+                    </select>
+                    <select class="bg-white border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <option>Trier par</option>
+                        <option>Note la plus élevée</option>
+                        <option>Prix le plus bas</option>
+                        <option>Prix le plus élevé</option>
+                        <option>Expérience</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Doctors List -->
+    <section class="py-12">
+        <div class="container mx-auto px-4">
+            <h2 class="text-2xl font-bold text-gray-800 mb-8">Médecins disponibles</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Doctor Card 1 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden doctor-card transition duration-300">
+                    <div class="p-6">
+                        <div class="flex items-start">
+                            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Dr. Amina Bello" class="w-20 h-20 rounded-full object-cover border-4 border-blue-100">
+                            <div class="ml-4">
+                                <div class="flex justify-between items-start">
+                                    <div>
+                                        <h3 class="text-xl font-bold text-gray-800">Dr. Amina Bello</h3>
+                                        <p class="text-blue-600 font-medium">Médecin Généraliste</p>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <span class="availability-dot available"></span>
+                                        <span class="text-sm text-gray-500">En ligne</span>
+                                    </div>
+                                </div>
+                                <div class="flex items-center mt-1">
+                                    <div class="rating-stars">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star-half-alt"></i>
+                                    </div>
+                                    <span class="text-sm text-gray-600 ml-2">4.7 (128 avis)</span>
+                                </div>
+                                <div class="flex flex-wrap gap-2 mt-3">
+                                    <span class="specialty-badge bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full">Consultation</span>
+                                    <span class="specialty-badge bg-green-100 text-green-800 text-xs px-3 py-1 rounded-full">Pédiatrie</span>
+                                    <span class="specialty-badge bg-purple-100 text-purple-800 text-xs px-3 py-1 rounded-full">Vaccination</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-4 pt-4 border-t border-gray-100">
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <p class="text-gray-600"><i class="fas fa-map-marker-alt mr-2 text-blue-500"></i>Cotonou, Bénin</p>
+                                    <p class="text-gray-600 mt-1"><i class="fas fa-graduation-cap mr-2 text-blue-500"></i>15 ans d'expérience</p>
+                                </div>
+                                <div class="text-right">
+                                    <p class="text-gray-500 text-sm">À partir de</p>
+                                    <p class="text-blue-600 font-bold">5,000 FCFA</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-6 flex space-x-3">
+                            <button class="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg font-medium">
+                                <i class="fas fa-video mr-2"></i>Consulter
+                            </button>
+                            <button class="flex-1 bg-white border border-blue-600 text-blue-600 hover:bg-blue-50 py-2 px-4 rounded-lg font-medium">
+                                <i class="fas fa-calendar-alt mr-2"></i>Rendez-vous
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Doctor Card 2 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden doctor-card transition duration-300">
+                    <div class="p-6">
+                        <div class="flex items-start">
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Dr. Koffi Mensah" class="w-20 h-20 rounded-full object-cover border-4 border-blue-100">
+                            <div class="ml-4">
+                                <div class="flex justify-between items-start">
+                                    <div>
+                                        <h3 class="text-xl font-bold text-gray-800">Dr. Koffi Mensah</h3>
+                                        <p class="text-blue-600 font-medium">Cardiologue</p>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <span class="availability-dot busy"></span>
+                                        <span class="text-sm text-gray-500">Occupé</span>
+                                    </div>
+                                </div>
+                                <div class="flex items-center mt-1">
+                                    <div class="rating-stars">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="far fa-star"></i>
+                                    </div>
+                                    <span class="text-sm text-gray-600 ml-2">4.2 (89 avis)</span>
+                                </div>
+                                <div class="flex flex-wrap gap-2 mt-3">
+                                    <span class="specialty-badge bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full">Consultation</span>
+                                    <span class="specialty-badge bg-red-100 text-red-800 text-xs px-3 py-1 rounded-full">Cardiologie</span>
+                                    <span class="specialty-badge bg-yellow-100 text-yellow-800 text-xs px-3 py-1 rounded-full">ECG</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-4 pt-4 border-t border-gray-100">
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <p class="text-gray-600"><i class="fas fa-map-marker-alt mr-2 text-blue-500"></i>Porto-Novo, Bénin</p>
+                                    <p class="text-gray-600 mt-1"><i class="fas fa-graduation-cap mr-2 text-blue-500"></i>12 ans d'expérience</p>
+                                </div>
+                                <div class="text-right">
+                                    <p class="text-gray-500 text-sm">À partir de</p>
+                                    <p class="text-blue-600 font-bold">8,000 FCFA</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-6 flex space-x-3">
+                            <button class="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg font-medium">
+                                <i class="fas fa-video mr-2"></i>Consulter
+                            </button>
+                            <button class="flex-1 bg-white border border-blue-600 text-blue-600 hover:bg-blue-50 py-2 px-4 rounded-lg font-medium">
+                                <i class="fas fa-calendar-alt mr-2"></i>Rendez-vous
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Doctor Card 3 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden doctor-card transition duration-300">
+                    <div class="p-6">
+                        <div class="flex items-start">
+                            <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Dr. Fatou Diop" class="w-20 h-20 rounded-full object-cover border-4 border-blue-100">
+                            <div class="ml-4">
+                                <div class="flex justify-between items-start">
+                                    <div>
+                                        <h3 class="text-xl font-bold text-gray-800">Dr. Fatou Diop</h3>
+                                        <p class="text-blue-600 font-medium">Pédiatre</p>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <span class="availability-dot away"></span>
+                                        <span class="text-sm text-gray-500">Bientôt disponible</span>
+                                    </div>
+                                </div>
+                                <div class="flex items-center mt-1">
+                                    <div class="rating-stars">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                    <span class="text-sm text-gray-600 ml-2">5.0 (214 avis)</span>
+                                </div>
+                                <div class="flex flex-wrap gap-2 mt-3">
+                                    <span class="specialty-badge bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full">Consultation</span>
+                                    <span class="specialty-badge bg-green-100 text-green-800 text-xs px-3 py-1 rounded-full">Pédiatrie</span>
+                                    <span class="specialty-badge bg-pink-100 text-pink-800 text-xs px-3 py-1 rounded-full">Nutrition</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-4 pt-4 border-t border-gray-100">
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <p class="text-gray-600"><i class="fas fa-map-marker-alt mr-2 text-blue-500"></i>Abomey-Calavi, Bénin</p>
+                                    <p class="text-gray-600 mt-1"><i class="fas fa-graduation-cap mr-2 text-blue-500"></i>18 ans d'expérience</p>
+                                </div>
+                                <div class="text-right">
+                                    <p class="text-gray-500 text-sm">À partir de</p>
+                                    <p class="text-blue-600 font-bold">6,500 FCFA</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-6 flex space-x-3">
+                            <button class="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg font-medium">
+                                <i class="fas fa-video mr-2"></i>Consulter
+                            </button>
+                            <button class="flex-1 bg-white border border-blue-600 text-blue-600 hover:bg-blue-50 py-2 px-4 rounded-lg font-medium">
+                                <i class="fas fa-calendar-alt mr-2"></i>Rendez-vous
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Doctor Card 4 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden doctor-card transition duration-300">
+                    <div class="p-6">
+                        <div class="flex items-start">
+                            <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Dr. Jean Adékambi" class="w-20 h-20 rounded-full object-cover border-4 border-blue-100">
+                            <div class="ml-4">
+                                <div class="flex justify-between items-start">
+                                    <div>
+                                        <h3 class="text-xl font-bold text-gray-800">Dr. Jean Adékambi</h3>
+                                        <p class="text-blue-600 font-medium">Dermatologue</p>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <span class="availability-dot available"></span>
+                                        <span class="text-sm text-gray-500">En ligne</span>
+                                    </div>
+                                </div>
+                                <div class="flex items-center mt-1">
+                                    <div class="rating-stars">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                    <span class="text-sm text-gray-600 ml-2">4.9 (156 avis)</span>
+                                </div>
+                                <div class="flex flex-wrap gap-2 mt-3">
+                                    <span class="specialty-badge bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full">Consultation</span>
+                                    <span class="specialty-badge bg-orange-100 text-orange-800 text-xs px-3 py-1 rounded-full">Dermatologie</span>
+                                    <span class="specialty-badge bg-teal-100 text-teal-800 text-xs px-3 py-1 rounded-full">Esthétique</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-4 pt-4 border-t border-gray-100">
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <p class="text-gray-600"><i class="fas fa-map-marker-alt mr-2 text-blue-500"></i>Parakou, Bénin</p>
+                                    <p class="text-gray-600 mt-1"><i class="fas fa-graduation-cap mr-2 text-blue-500"></i>10 ans d'expérience</p>
+                                </div>
+                                <div class="text-right">
+                                    <p class="text-gray-500 text-sm">À partir de</p>
+                                    <p class="text-blue-600 font-bold">7,500 FCFA</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-6 flex space-x-3">
+                            <button class="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg font-medium">
+                                <i class="fas fa-video mr-2"></i>Consulter
+                            </button>
+                            <button class="flex-1 bg-white border border-blue-600 text-blue-600 hover:bg-blue-50 py-2 px-4 rounded-lg font-medium">
+                                <i class="fas fa-calendar-alt mr-2"></i>Rendez-vous
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Doctor Card 5 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden doctor-card transition duration-300">
+                    <div class="p-6">
+                        <div class="flex items-start">
+                            <img src="https://randomuser.me/api/portraits/women/33.jpg" alt="Dr. Aïchatou Oumarou" class="w-20 h-20 rounded-full object-cover border-4 border-blue-100">
+                            <div class="ml-4">
+                                <div class="flex justify-between items-start">
+                                    <div>
+                                        <h3 class="text-xl font-bold text-gray-800">Dr. Aïchatou Oumarou</h3>
+                                        <p class="text-blue-600 font-medium">Gynécologue</p>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <span class="availability-dot available"></span>
+                                        <span class="text-sm text-gray-500">En ligne</span>
+                                    </div>
+                                </div>
+                                <div class="flex items-center mt-1">
+                                    <div class="rating-stars">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star-half-alt"></i>
+                                    </div>
+                                    <span class="text-sm text-gray-600 ml-2">4.6 (203 avis)</span>
+                                </div>
+                                <div class="flex flex-wrap gap-2 mt-3">
+                                    <span class="specialty-badge bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full">Consultation</span>
+                                    <span class="specialty-badge bg-pink-100 text-pink-800 text-xs px-3 py-1 rounded-full">Gynécologie</span>
+                                    <span class="specialty-badge bg-purple-100 text-purple-800 text-xs px-3 py-1 rounded-full">Obstétrique</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-4 pt-4 border-t border-gray-100">
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <p class="text-gray-600"><i class="fas fa-map-marker-alt mr-2 text-blue-500"></i>Cotonou, Bénin</p>
+                                    <p class="text-gray-600 mt-1"><i class="fas fa-graduation-cap mr-2 text-blue-500"></i>14 ans d'expérience</p>
+                                </div>
+                                <div class="text-right">
+                                    <p class="text-gray-500 text-sm">À partir de</p>
+                                    <p class="text-blue-600 font-bold">8,500 FCFA</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-6 flex space-x-3">
+                            <button class="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg font-medium">
+                                <i class="fas fa-video mr-2"></i>Consulter
+                            </button>
+                            <button class="flex-1 bg-white border border-blue-600 text-blue-600 hover:bg-blue-50 py-2 px-4 rounded-lg font-medium">
+                                <i class="fas fa-calendar-alt mr-2"></i>Rendez-vous
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Doctor Card 6 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden doctor-card transition duration-300">
+                    <div class="p-6">
+                        <div class="flex items-start">
+                            <img src="https://randomuser.me/api/portraits/men/68.jpg" alt="Dr. Samuel Agossou" class="w-20 h-20 rounded-full object-cover border-4 border-blue-100">
+                            <div class="ml-4">
+                                <div class="flex justify-between items-start">
+                                    <div>
+                                        <h3 class="text-xl font-bold text-gray-800">Dr. Samuel Agossou</h3>
+                                        <p class="text-blue-600 font-medium">Ophtalmologue</p>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <span class="availability-dot busy"></span>
+                                        <span class="text-sm text-gray-500">Occupé</span>
+                                    </div>
+                                </div>
+                                <div class="flex items-center mt-1">
+                                    <div class="rating-stars">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="far fa-star"></i>
+                                    </div>
+                                    <span class="text-sm text-gray-600 ml-2">4.1 (97 avis)</span>
+                                </div>
+                                <div class="flex flex-wrap gap-2 mt-3">
+                                    <span class="specialty-badge bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full">Consultation</span>
+                                    <span class="specialty-badge bg-indigo-100 text-indigo-800 text-xs px-3 py-1 rounded-full">Ophtalmologie</span>
+                                    <span class="specialty-badge bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full">Lunettes</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-4 pt-4 border-t border-gray-100">
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <p class="text-gray-600"><i class="fas fa-map-marker-alt mr-2 text-blue-500"></i>Natitingou, Bénin</p>
+                                    <p class="text-gray-600 mt-1"><i class="fas fa-graduation-cap mr-2 text-blue-500"></i>9 ans d'expérience</p>
+                                </div>
+                                <div class="text-right">
+                                    <p class="text-gray-500 text-sm">À partir de</p>
+                                    <p class="text-blue-600 font-bold">9,000 FCFA</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-6 flex space-x-3">
+                            <button class="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg font-medium">
+                                <i class="fas fa-video mr-2"></i>Consulter
+                            </button>
+                            <button class="flex-1 bg-white border border-blue-600 text-blue-600 hover:bg-blue-50 py-2 px-4 rounded-lg font-medium">
+                                <i class="fas fa-calendar-alt mr-2"></i>Rendez-vous
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pagination -->
+            <div class="mt-12 flex justify-center">
+                <nav class="flex items-center space-x-1">
+                    <button class="px-3 py-1 rounded-lg border border-gray-300 text-gray-500 hover:bg-gray-100">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="px-3 py-1 rounded-lg bg-blue-600 text-white">1</button>
+                    <button class="px-3 py-1 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-100">2</button>
+                    <button class="px-3 py-1 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-100">3</button>
+                    <span class="px-2 text-gray-500">...</span>
+                    <button class="px-3 py-1 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-100">8</button>
+                    <button class="px-3 py-1 rounded-lg border border-gray-300 text-gray-500 hover:bg-gray-100">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </nav>
+            </div>
+        </div>
+    </section>
+
+    
+
+    <!-- CTA -->
+    <section class="py-12 bg-gradient-to-r from-blue-600 to-indigo-600 text-white">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-2xl md:text-3xl font-bold mb-4">Prêt à consulter un médecin en ligne ?</h2>
+            <p class="text-blue-100 mb-8 max-w-2xl mx-auto">Inscrivez-vous gratuitement et accédez à des consultations médicales de qualité depuis votre smartphone ou ordinateur.</p>
+            <div class="flex flex-col sm:flex-row justify-center space-y-3 sm:space-y-0 sm:space-x-4">
+                <button class="bg-white text-blue-600 hover:bg-blue-50 px-6 py-3 rounded-lg font-medium">
+                    <i class="fas fa-user-plus mr-2"></i>S'inscrire maintenant
+                </button>
+                <button class="bg-transparent border border-white hover:bg-white hover:text-blue-600 px-6 py-3 rounded-lg font-medium">
+                    <i class="fas fa-question-circle mr-2"></i>Comment ça marche ?
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="hidden md:block bg-gray-900 text-white pt-16 pb-8">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-4">
+                        <div class="w-10 h-10 rounded-full gradient-bg flex items-center justify-center">
+                            <i class="fas fa-heartbeat text-white text-xl"></i>
+                        </div>
+                        <span class="text-xl font-bold">MediConnect</span>
+                    </div>
+                    <p class="text-gray-400 mb-4">La télémédecine accessible à tous au Bénin.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Services</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">Consultation vidéo</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Consultation par chat</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Consultation téléphonique</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Dossiers médicaux</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Livraison de médicaments</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Entreprise</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">À propos</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Carrières</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Partenaires</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Presse</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Blog</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Contact</h3>
+                    <ul class="space-y-2">
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt text-gray-400 mr-2 mt-1"></i>
+                            <span class="text-gray-400">Rue 256, Cotonou, Bénin</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-phone-alt text-gray-400 mr-2"></i>
+                            <span class="text-gray-400">+229 60 12 34 56</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-envelope text-gray-400 mr-2"></i>
+                            <span class="text-gray-400">contact@mediconnect.bj</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-headset text-gray-400 mr-2"></i>
+                            <span class="text-gray-400">Support 24/7</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400 mb-4 md:mb-0">© 2025 MediConnect. Tous droits réservés.</p>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-400 hover:text-white">Conditions d'utilisation</a>
+                    <a href="#" class="text-gray-400 hover:text-white">Politique de confidentialité</a>
+                    <a href="#" class="text-gray-400 hover:text-white">Mentions légales</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simple JavaScript for interactive elements
+        document.addEventListener('DOMContentLoaded', function() {
+            // Doctor card hover effect
+            const doctorCards = document.querySelectorAll('.doctor-card');
+            doctorCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    const badges = this.querySelectorAll('.specialty-badge');
+                    badges.forEach(badge => {
+                        badge.style.transform = 'translateY(-2px)';
+                    });
+                });
+                card.addEventListener('mouseleave', function() {
+                    const badges = this.querySelectorAll('.specialty-badge');
+                    badges.forEach(badge => {
+                        badge.style.transform = 'translateY(0)';
+                    });
+                });
+            });
+
+            // Consultation button click
+            const consultButtons = document.querySelectorAll('button:has(.fa-video)');
+            consultButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const doctorName = this.closest('.doctor-card').querySelector('h3').textContent;
+                    alert(`Vous allez consulter ${doctorName}. Redirection vers la salle de consultation...`);
+                });
+            });
+
+            // Appointment button click
+            const appointmentButtons = document.querySelectorAll('button:has(.fa-calendar-alt)');
+            appointmentButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const doctorName = this.closest('.doctor-card').querySelector('h3').textContent;
+                    alert(`Prise de rendez-vous avec ${doctorName}. Redirection vers le calendrier...`);
+                });
+            });
+        });
+    </script>
+
+<div id="navbar-mobile-placeholder"></div>
+<div id="navbar-mobile-placeholder"></div>
+<script>
+    fetch('navbar_mobile.html')
+        .then(res => res.text())
+        .then(html => {
+            document.getElementById('navbar-mobile-placeholder').innerHTML = html;
+
+            // Si on veut afficher tous les éléments, on n'applique aucun filtrage :
+            // const showIcons = [...]; → supprimé ou ignoré
+
+            /*
+            // Ce bloc n'est plus nécessaire si on veut tout afficher :
+            const allIcons = [
+                'nav-accueil',
+                'nav-consultation',
+                'nav-dossiers',
+                'nav-services',
+                'nav-medecin',
+                'nav-pharmacie',
+                'nav-notation',
+                'nav-notification'
+            ];
+            allIcons.forEach(id => {
+                if (!showIcons.includes(id)) {
+                    const el = document.getElementById(id);
+                    if (el) el.style.display = 'none';
+                }
+            });
+            */
+        });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Espace Médecin - SantéBénin</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .sidebar {
+            transition: all 0.3s ease;
+        }
+        .notification-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+        }
+        .consultation-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        .chart-container {
+            height: 300px;
+        }
+        @media (max-width: 768px) {
+            .sidebar {
+                position: fixed;
+                left: -100%;
+                z-index: 50;
+            }
+            .sidebar.active {
+                left: 0;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+    <div class="flex h-screen overflow-hidden">
+        <!-- Sidebar -->
+        <div class="sidebar bg-blue-800 text-white w-64 fixed h-full flex flex-col">
+            <div class="p-4 flex items-center space-x-3 border-b border-blue-700">
+                <img src="https://via.placeholder.com/40" alt="Logo" class="rounded-full">
+                <div>
+                    <h1 class="font-bold text-lg">MediConnect</h1>
+                    <p class="text-xs text-blue-200">Espace Médecin</p>
+                </div>
+            </div>
+            
+            <div class="p-4 flex items-center space-x-3 border-b border-blue-700">
+                <img src="https://via.placeholder.com/50" alt="Doctor" class="rounded-full border-2 border-white">
+                <div>
+                    <h2 class="font-semibold">Dr. Koffi Adékambi</h2>
+                    <p class="text-xs text-blue-200">Médecin Généraliste</p>
+                </div>
+            </div>
+            
+            <nav class="flex-1 overflow-y-auto p-4 space-y-2">
+                <a href="#" class="flex items-center space-x-3 p-2 rounded-lg bg-blue-700">
+                    <i class="fas fa-home w-6 text-center"></i>
+                    <span>Tableau de bord</span>
+                </a>
+                <a href="#" class="flex items-center space-x-3 p-2 rounded-lg hover:bg-blue-700">
+                    <i class="fas fa-calendar-check w-6 text-center"></i>
+                    <span>Rendez-vous</span>
+                    <span class="ml-auto bg-blue-600 text-xs px-2 py-1 rounded-full">3</span>
+                </a>
+                <a href="#" class="flex items-center space-x-3 p-2 rounded-lg hover:bg-blue-700">
+                    <i class="fas fa-video w-6 text-center"></i>
+                    <span>Consultations</span>
+                </a>
+                <a href="#" class="flex items-center space-x-3 p-2 rounded-lg hover:bg-blue-700">
+                    <i class="fas fa-file-medical w-6 text-center"></i>
+                    <span>Dossiers patients</span>
+                </a>
+                <a href="#" class="flex items-center space-x-3 p-2 rounded-lg hover:bg-blue-700">
+                    <i class="fas fa-prescription-bottle-alt w-6 text-center"></i>
+                    <span>Ordonnances</span>
+                </a>
+                <a href="#" class="flex items-center space-x-3 p-2 rounded-lg hover:bg-blue-700">
+                    <i class="fas fa-comment-medical w-6 text-center"></i>
+                    <span>Messages</span>
+                    <span class="ml-auto bg-blue-600 text-xs px-2 py-1 rounded-full">5</span>
+                </a>
+                <a href="#" class="flex items-center space-x-3 p-2 rounded-lg hover:bg-blue-700">
+                    <i class="fas fa-chart-line w-6 text-center"></i>
+                    <span>Statistiques</span>
+                </a>
+                <a href="#" class="flex items-center space-x-3 p-2 rounded-lg hover:bg-blue-700">
+                    <i class="fas fa-star w-6 text-center"></i>
+                    <span>Avis patients</span>
+                </a>
+                <a href="#" class="flex items-center space-x-3 p-2 rounded-lg hover:bg-blue-700">
+                    <i class="fas fa-cog w-6 text-center"></i>
+                    <span>Paramètres</span>
+                </a>
+            </nav>
+            
+            <div class="p-4 border-t border-blue-700">
+                <button class="flex items-center space-x-3 p-2 rounded-lg hover:bg-blue-700 w-full">
+                    <i class="fas fa-sign-out-alt w-6 text-center"></i>
+                    <span>Déconnexion</span>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="flex-1 flex flex-col overflow-hidden ml-64">
+            <!-- Top Navigation -->
+            <header class="bg-white shadow-sm z-10">
+                <div class="flex items-center justify-between p-4">
+                    <button class="md:hidden text-blue-800" id="sidebarToggle">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                    
+                    <div class="flex-1 max-w-md mx-4">
+                        <div class="relative">
+                            <input type="text" placeholder="Rechercher..." class="w-full pl-10 pr-4 py-2 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center space-x-4">
+                        <div class="relative">
+                            <button class="text-gray-600 hover:text-blue-800">
+                                <i class="fas fa-bell text-xl"></i>
+                                <span class="notification-badge bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">3</span>
+                            </button>
+                        </div>
+                        <div class="relative">
+                            <button class="text-gray-600 hover:text-blue-800">
+                                <i class="fas fa-envelope text-xl"></i>
+                                <span class="notification-badge bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">5</span>
+                            </button>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <img src="https://via.placeholder.com/40" alt="User" class="rounded-full border-2 border-blue-500">
+                            <span class="hidden md:inline font-medium">Dr. Adékambi</span>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            
+            <!-- Main Content Area -->
+            <main class="flex-1 overflow-y-auto p-4 bg-gray-50">
+                <div class="mb-6 flex justify-between items-center">
+                    <h1 class="text-2xl font-bold text-gray-800">Tableau de bord</h1>
+                    <div class="flex space-x-2">
+                        <button class="px-4 py-2 bg-blue-100 text-blue-800 rounded-lg hover:bg-blue-200">
+                            <i class="fas fa-sync-alt mr-2"></i>Actualiser
+                        </button>
+                        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                            <i class="fas fa-plus mr-2"></i>Nouvelle consultation
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Stats Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+                    <div class="bg-white p-4 rounded-lg shadow-sm border-l-4 border-blue-500">
+                        <div class="flex justify-between">
+                            <div>
+                                <p class="text-gray-500">Consultations aujourd'hui</p>
+                                <h3 class="text-2xl font-bold">8</h3>
+                            </div>
+                            <div class="text-blue-500 bg-blue-100 p-3 rounded-full">
+                                <i class="fas fa-user-md text-xl"></i>
+                            </div>
+                        </div>
+                        <p class="text-sm text-green-500 mt-2"><i class="fas fa-arrow-up mr-1"></i> 2 de plus qu'hier</p>
+                    </div>
+                    
+                    <div class="bg-white p-4 rounded-lg shadow-sm border-l-4 border-green-500">
+                        <div class="flex justify-between">
+                            <div>
+                                <p class="text-gray-500">Patients ce mois</p>
+                                <h3 class="text-2xl font-bold">42</h3>
+                            </div>
+                            <div class="text-green-500 bg-green-100 p-3 rounded-full">
+                                <i class="fas fa-users text-xl"></i>
+                            </div>
+                        </div>
+                        <p class="text-sm text-green-500 mt-2"><i class="fas fa-arrow-up mr-1"></i> 12% vs mois dernier</p>
+                    </div>
+                    
+                    <div class="bg-white p-4 rounded-lg shadow-sm border-l-4 border-yellow-500">
+                        <div class="flex justify-between">
+                            <div>
+                                <p class="text-gray-500">Revenus ce mois</p>
+                                <h3 class="text-2xl font-bold">125,500 FCFA</h3>
+                            </div>
+                            <div class="text-yellow-500 bg-yellow-100 p-3 rounded-full">
+                                <i class="fas fa-money-bill-wave text-xl"></i>
+                            </div>
+                        </div>
+                        <p class="text-sm text-green-500 mt-2"><i class="fas fa-arrow-up mr-1"></i> 8% vs mois dernier</p>
+                    </div>
+                    
+                    <div class="bg-white p-4 rounded-lg shadow-sm border-l-4 border-purple-500">
+                        <div class="flex justify-between">
+                            <div>
+                                <p class="text-gray-500">Note moyenne</p>
+                                <h3 class="text-2xl font-bold">4.7/5</h3>
+                            </div>
+                            <div class="text-purple-500 bg-purple-100 p-3 rounded-full">
+                                <i class="fas fa-star text-xl"></i>
+                            </div>
+                        </div>
+                        <p class="text-sm text-gray-500 mt-2">12 avis ce mois</p>
+                    </div>
+                </div>
+                
+                <!-- Upcoming Appointments -->
+                <div class="bg-white rounded-lg shadow-sm mb-6">
+                    <div class="p-4 border-b border-gray-200">
+                        <h2 class="text-lg font-semibold text-gray-800">Prochains rendez-vous</h2>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Patient</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Heure</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Type</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Motif</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200">
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="flex items-center">
+                                            <div class="flex-shrink-0 h-10 w-10">
+                                                <img class="h-10 w-10 rounded-full" src="https://via.placeholder.com/40" alt="">
+                                            </div>
+                                            <div class="ml-4">
+                                                <div class="text-sm font-medium text-gray-900">Aïchatou Bello</div>
+                                                <div class="text-sm text-gray-500">35 ans, Femme</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="text-sm text-gray-900">Aujourd'hui, 10:30</div>
+                                        <div class="text-sm text-gray-500">dans 15 min</div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">Vidéo</span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                        Suivi diabète
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                        <button class="text-blue-600 hover:text-blue-900 mr-3">Démarrer</button>
+                                        <button class="text-gray-600 hover:text-gray-900">Reporter</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="flex items-center">
+                                            <div class="flex-shrink-0 h-10 w-10">
+                                                <img class="h-10 w-10 rounded-full" src="https://via.placeholder.com/40" alt="">
+                                            </div>
+                                            <div class="ml-4">
+                                                <div class="text-sm font-medium text-gray-900">Kossi Agbessi</div>
+                                                <div class="text-sm text-gray-500">28 ans, Homme</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="text-sm text-gray-900">Aujourd'hui, 14:00</div>
+                                        <div class="text-sm text-gray-500">dans 4h</div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Chat</span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                        Maux de tête persistants
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                        <button class="text-blue-600 hover:text-blue-900 mr-3">Préparer</button>
+                                        <button class="text-gray-600 hover:text-gray-900">Annuler</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="flex items-center">
+                                            <div class="flex-shrink-0 h-10 w-10">
+                                                <img class="h-10 w-10 rounded-full" src="https://via.placeholder.com/40" alt="">
+                                            </div>
+                                            <div class="ml-4">
+                                                <div class="text-sm font-medium text-gray-900">Fati Orou</div>
+                                                <div class="text-sm text-gray-500">42 ans, Femme</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="text-sm text-gray-900">Demain, 09:15</div>
+                                        <div class="text-sm text-gray-500">demain</div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">Vidéo</span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                        Consultation prénatale
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                        <button class="text-blue-600 hover:text-blue-900 mr-3">Préparer</button>
+                                        <button class="text-gray-600 hover:text-gray-900">Annuler</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="p-4 border-t border-gray-200 text-center">
+                        <button class="text-blue-600 hover:text-blue-800 font-medium">Voir tous les rendez-vous</button>
+                    </div>
+                </div>
+                
+                <!-- Recent Consultations and Stats -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+                    <!-- Recent Consultations -->
+                    <div class="lg:col-span-2 bg-white rounded-lg shadow-sm">
+                        <div class="p-4 border-b border-gray-200">
+                            <h2 class="text-lg font-semibold text-gray-800">Consultations récentes</h2>
+                        </div>
+                        <div class="divide-y divide-gray-200">
+                            <div class="p-4 consultation-card transition duration-300">
+                                <div class="flex justify-between items-start">
+                                    <div class="flex items-center space-x-3">
+                                        <img src="https://via.placeholder.com/50" alt="Patient" class="rounded-full w-12 h-12">
+                                        <div>
+                                            <h3 class="font-medium">Marcel Dossou</h3>
+                                            <p class="text-sm text-gray-500">Hier, 16:30 - 17:10</p>
+                                        </div>
+                                    </div>
+                                    <span class="px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">Terminée</span>
+                                </div>
+                                <div class="mt-3 pl-15">
+                                    <p class="text-sm text-gray-600"><span class="font-medium">Motif:</span> Douleurs abdominales</p>
+                                    <p class="text-sm text-gray-600"><span class="font-medium">Diagnostic:</span> Infection intestinale</p>
+                                    <div class="mt-2 flex space-x-2">
+                                        <button class="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded hover:bg-blue-200">
+                                            <i class="fas fa-file-prescription mr-1"></i> Voir ordonnance
+                                        </button>
+                                        <button class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded hover:bg-gray-200">
+                                            <i class="fas fa-file-medical mr-1"></i> Dossier médical
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="p-4 consultation-card transition duration-300">
+                                <div class="flex justify-between items-start">
+                                    <div class="flex items-center space-x-3">
+                                        <img src="https://via.placeholder.com/50" alt="Patient" class="rounded-full w-12 h-12">
+                                        <div>
+                                            <h3 class="font-medium">Amina Touré</h3>
+                                            <p class="text-sm text-gray-500">Hier, 11:15 - 11:45</p>
+                                        </div>
+                                    </div>
+                                    <span class="px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">Terminée</span>
+                                </div>
+                                <div class="mt-3 pl-15">
+                                    <p class="text-sm text-gray-600"><span class="font-medium">Motif:</span> Fièvre persistante</p>
+                                    <p class="text-sm text-gray-600"><span class="font-medium">Diagnostic:</span> Paludisme</p>
+                                    <div class="mt-2 flex space-x-2">
+                                        <button class="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded hover:bg-blue-200">
+                                            <i class="fas fa-file-prescription mr-1"></i> Voir ordonnance
+                                        </button>
+                                        <button class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded hover:bg-gray-200">
+                                            <i class="fas fa-file-medical mr-1"></i> Dossier médical
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="p-4 consultation-card transition duration-300">
+                                <div class="flex justify-between items-start">
+                                    <div class="flex items-center space-x-3">
+                                        <img src="https://via.placeholder.com/50" alt="Patient" class="rounded-full w-12 h-12">
+                                        <div>
+                                            <h3 class="font-medium">Komlan Gbedo</h3>
+                                            <p class="text-sm text-gray-500">Avant-hier, 15:00 - 15:30</p>
+                                        </div>
+                                    </div>
+                                    <span class="px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">Terminée</span>
+                                </div>
+                                <div class="mt-3 pl-15">
+                                    <p class="text-sm text-gray-600"><span class="font-medium">Motif:</span> Contrôle tension artérielle</p>
+                                    <p class="text-sm text-gray-600"><span class="font-medium">Diagnostic:</span> Hypertension stabilisée</p>
+                                    <div class="mt-2 flex space-x-2">
+                                        <button class="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded hover:bg-blue-200">
+                                            <i class="fas fa-file-prescription mr-1"></i> Voir ordonnance
+                                        </button>
+                                        <button class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded hover:bg-gray-200">
+                                            <i class="fas fa-file-medical mr-1"></i> Dossier médical
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-4 border-t border-gray-200 text-center">
+                            <button class="text-blue-600 hover:text-blue-800 font-medium">Voir toutes les consultations</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Statistics and Reviews -->
+                    <div class="space-y-6">
+                        <!-- Weekly Stats -->
+                        <div class="bg-white rounded-lg shadow-sm p-4">
+                            <h2 class="text-lg font-semibold text-gray-800 mb-4">Statistiques hebdomadaires</h2>
+                            <div class="chart-container">
+                                <canvas id="weeklyChart"></canvas>
+                            </div>
+                            <div class="mt-4 grid grid-cols-2 gap-2">
+                                <div class="text-center p-2 bg-blue-50 rounded">
+                                    <p class="text-sm text-gray-500">Consultations</p>
+                                    <p class="font-bold text-blue-800">24</p>
+                                </div>
+                                <div class="text-center p-2 bg-green-50 rounded">
+                                    <p class="text-sm text-gray-500">Nouveaux patients</p>
+                                    <p class="font-bold text-green-800">8</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Recent Reviews -->
+                        <div class="bg-white rounded-lg shadow-sm">
+                            <div class="p-4 border-b border-gray-200">
+                                <h2 class="text-lg font-semibold text-gray-800">Avis récents</h2>
+                            </div>
+                            <div class="p-4">
+                                <div class="flex items-start space-x-3 mb-4">
+                                    <img src="https://via.placeholder.com/40" alt="Patient" class="rounded-full w-10 h-10">
+                                    <div>
+                                        <div class="flex items-center">
+                                            <div class="flex text-yellow-400">
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                            </div>
+                                            <span class="text-xs text-gray-500 ml-2">3 jours</span>
+                                        </div>
+                                        <p class="font-medium mt-1">Mariam K.</p>
+                                        <p class="text-sm text-gray-600">"Le Dr. Adékambi a été très professionnel et attentionné. Il a pris le temps d'expliquer mon traitement."</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-start space-x-3">
+                                    <img src="https://via.placeholder.com/40" alt="Patient" class="rounded-full w-10 h-10">
+                                    <div>
+                                        <div class="flex items-center">
+                                            <div class="flex text-yellow-400">
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="far fa-star"></i>
+                                            </div>
+                                            <span class="text-xs text-gray-500 ml-2">1 semaine</span>
+                                        </div>
+                                        <p class="font-medium mt-1">Jean A.</p>
+                                        <p class="text-sm text-gray-600">"Bonne consultation mais j'aurais aimé plus de détails sur les effets secondaires des médicaments."</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="p-4 border-t border-gray-200 text-center">
+                                <button class="text-blue-600 hover:text-blue-800 font-medium">Voir tous les avis</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Quick Actions -->
+                <div class="bg-white rounded-lg shadow-sm p-4 mb-6">
+                    <h2 class="text-lg font-semibold text-gray-800 mb-4">Actions rapides</h2>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <button class="flex flex-col items-center p-4 rounded-lg border border-gray-200 hover:bg-blue-50 hover:border-blue-200">
+                            <div class="text-blue-600 bg-blue-100 p-3 rounded-full mb-2">
+                                <i class="fas fa-file-prescription text-xl"></i>
+                            </div>
+                            <span class="text-sm font-medium">Nouvelle ordonnance</span>
+                        </button>
+                        <button class="flex flex-col items-center p-4 rounded-lg border border-gray-200 hover:bg-green-50 hover:border-green-200">
+                            <div class="text-green-600 bg-green-100 p-3 rounded-full mb-2">
+                                <i class="fas fa-calendar-plus text-xl"></i>
+                            </div>
+                            <span class="text-sm font-medium">Planifier RDV</span>
+                        </button>
+                        <button class="flex flex-col items-center p-4 rounded-lg border border-gray-200 hover:bg-purple-50 hover:border-purple-200">
+                            <div class="text-purple-600 bg-purple-100 p-3 rounded-full mb-2">
+                                <i class="fas fa-pills text-xl"></i>
+                            </div>
+                            <span class="text-sm font-medium">Pharmacie en ligne</span>
+                        </button>
+                        <button class="flex flex-col items-center p-4 rounded-lg border border-gray-200 hover:bg-yellow-50 hover:border-yellow-200">
+                            <div class="text-yellow-600 bg-yellow-100 p-3 rounded-full mb-2">
+                                <i class="fas fa-bell text-xl"></i>
+                            </div>
+                            <span class="text-sm font-medium">Rappels patients</span>
+                        </button>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Toggle sidebar on mobile
+        document.getElementById('sidebarToggle').addEventListener('click', function() {
+            document.querySelector('.sidebar').classList.toggle('active');
+        });
+
+        // Weekly chart
+        const ctx = document.getElementById('weeklyChart').getContext('2d');
+        const weeklyChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'],
+                datasets: [{
+                    label: 'Consultations',
+                    data: [3, 5, 2, 4, 6, 3, 1],
+                    backgroundColor: 'rgba(59, 130, 246, 0.5)',
+                    borderColor: 'rgba(59, 130, 246, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+$0
+                        beginAtZero: true,
+                        ticks: {
+                            stepSize: 1
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                }
+            }
+        });
+
+        // Simulate consultation card hover effect
+        document.querySelectorAll('.consultation-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.classList.add('shadow-md');
+            });
+            card.addEventListener('mouseleave', function() {
+                this.classList.remove('shadow-md');
+            });
+        });
+    </script>
+</body>
+</html>
